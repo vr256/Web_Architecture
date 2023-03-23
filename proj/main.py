@@ -1,8 +1,8 @@
 import sys
 
-from lab1.entity.user import User
-from lab1.utills import encode
-from lab1.factory import DB_Factory, Connection_Factory, DAO_Factory
+from .entity.user import User
+from .utills import encode
+from .factory import DB_Factory, Connection_Factory, DAO_Factory
 
 dbms = sys.argv[1]
 

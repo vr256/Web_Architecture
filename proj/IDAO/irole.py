@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import List, Union
-from lab1.entity.role import Role
+from ..entity.role import Role
 
 class IRole_DAO(metaclass=ABCMeta):
     @abstractmethod

@@ -2,42 +2,42 @@ import logging
 import mysql.connector
 
 from typing import List, Union
-from lab1.utills import singleton
-from lab1.IDAO.irole import IRole_DAO
-from lab1.entity.role import Role
+from ..utills import singleton
+from ..IDAO.iaction import IAction_DAO
+from ..entity.action import Action
 
 logging.basicConfig(level=logging.DEBUG, filename="logfile.txt", filemode="a+",
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
 
 @singleton
-class MRole_DAO(IRole_DAO):
+class MAction_DAO(IAction_DAO):
     def __init__(self, connection):
         self.cnx = connection.cnx
 
-    def select_all(self) -> List[Role]:
+    def select_all(self) -> List[Action]:
         cursor = self.cnx.cursor()
-        query = 'SELECT * FROM role;'
+        query = 'SELECT * FROM action;'
         cursor.execute(query)
-        roles = [Role(*i) for i in cursor.fetchall()]
+        actions = [Action(*i) for i in cursor.fetchall()]
         cursor.close()
-        return roles
+        return actions
 
-    def find_by_name(self, name : str) -> Union[Role, bool]:
+    def find_by_name(self, name : str) -> Union[Action, bool]:
         cursor = self.cnx.cursor()
-        query = f'SELECT * FROM role WHERE name_role="{name}";'
+        query = f'SELECT * FROM action WHERE name_action="{name}";'
         cursor.execute(query)
         result = cursor.fetchall()
         cursor.close()
         if result:
-            return Role(*result[0])
+            return Action(*result[0])
         return False
 
-    def insert(self, roles : List[Role]):
+    def insert(self, actions : List[Action]):
         try:
             cursor = self.cnx.cursor()
-            for role in roles:
-                query = 'INSERT INTO role (name_role)\n' + \
-                        f'VALUES ("{role.name_role}");'
+            for action in actions:
+                query = 'INSERT INTO action (name_action)\n' + \
+                        f'VALUES ("{action.name_action}");'
                 cursor.execute(query)
             self.cnx.commit()
         except mysql.connector.Error:
@@ -45,13 +45,13 @@ class MRole_DAO(IRole_DAO):
         finally:
             cursor.close()
 
-    def update(self, roles : List[Role]):
+    def update(self, actions : List[Action]):
         try:
             cursor = self.cnx.cursor()
-            for role in roles:
-                query = 'UPDATE role\n' + \
-                        f'SET name_role="{role.name_role}"\n' + \
-                        f'WHERE role_id={role.role_id};'
+            for action in actions:
+                query = 'UPDATE action\n' + \
+                        f'SET name_action="{action.name_action}"\n' + \
+                        f'WHERE action_id={action.action_id};'
                 cursor.execute(query)
             self.cnx.commit()
         except mysql.connector.Error:
@@ -59,11 +59,11 @@ class MRole_DAO(IRole_DAO):
         finally:
             cursor.close()
 
-    def delete(self, roles : List[Role]):
+    def delete(self, actions : List[Action]):
         cursor = self.cnx.cursor()
-        for role in roles:
-            query = 'DELETE FROM role\n' + \
-                    f'WHERE name_role="{role.name_role}";'
+        for action in actions:
+            query = 'DELETE FROM action\n' + \
+                    f'WHERE name_action="{action.name_action}";'
             cursor.execute(query)
         self.cnx.commit()
         cursor.close()

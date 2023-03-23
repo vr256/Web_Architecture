@@ -1,7 +1,7 @@
 import logging
 
 from abc import ABCMeta, abstractmethod
-from lab1.utills import singleton
+from .utills import singleton
 from mysql.connector import pooling, Error
 
 logging.basicConfig(level=logging.INFO, filename="logfile", filemode="a+",

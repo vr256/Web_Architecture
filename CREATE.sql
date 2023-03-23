@@ -1,3 +1,5 @@
+DROP DATABASE time_tracking_db;
+
 CREATE DATABASE IF NOT EXISTS time_tracking_db;
 
 USE time_tracking_db;

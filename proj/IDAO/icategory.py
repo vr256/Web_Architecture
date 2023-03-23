@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import List, Union
-from lab1.entity.category import Category
+from ..entity.category import Category
 
 
 class ICategory_DAO(metaclass=ABCMeta):

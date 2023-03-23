@@ -2,9 +2,9 @@ import logging
 import mysql.connector
 
 from typing import List
-from lab1.utills import singleton
-from lab1.IDAO.itime_tracking import ITimeTracking_DAO
-from lab1.entity.time_tracking import TimeTracking
+from ..utills import singleton
+from ..IDAO.itime_tracking import ITimeTracking_DAO
+from ..entity.time_tracking import TimeTracking
 
 logging.basicConfig(level=logging.DEBUG, filename="logfile.txt", filemode="a+",
                     format="%(asctime)-15s %(levelname)-8s %(message)s")

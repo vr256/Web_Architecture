@@ -2,9 +2,9 @@ import logging
 import mysql.connector
 
 from typing import List, Union
-from lab1.utills import singleton
-from lab1.IDAO.iuser import IUser_DAO
-from lab1.entity.user import User
+from ..utills import singleton
+from ..IDAO.iuser import IUser_DAO
+from ..entity.user import User
 
 logging.basicConfig(level=logging.DEBUG, filename="logfile.txt", filemode="a+",
                     format="%(asctime)-15s %(levelname)-8s %(message)s")

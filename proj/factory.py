@@ -1,5 +1,5 @@
-from lab1.MDAO import mactivity_dao, mcategory_dao, mrole_dao, mtime_tracking_dao, muser_dao, maction_dao
-from lab1.connector import *
+from .MDAO import mactivity_dao, mcategory_dao, mrole_dao, mtime_tracking_dao, muser_dao, maction_dao
+from .connector import *
 
 class MySQL_DAO_Factory:
     @staticmethod

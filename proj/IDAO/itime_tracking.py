@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
-from lab1.entity.time_tracking import TimeTracking
+from ..entity.time_tracking import TimeTracking
 
 class ITimeTracking_DAO(metaclass=ABCMeta):
     @abstractmethod
