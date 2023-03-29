@@ -5,9 +5,9 @@ VALUES ('user'),
 	   ('admin');
 
 INSERT INTO user (login, password, email, role_id)
-VALUES ('super_admin', '$2b$12$XK3mWVuexo3okE8j5FYWU.pS2QEepg6xoRt6mkIxUOC8ZO9es6dsG', 'admin@gmail.com', 2),
-	   ('first_user', '$2b$12$YSJnEewd4UmfcZ/qcXDPzOX/M.L2MRQoJd56kn4Fmxe2aJrEdv0.q', 'user1@gmail.com', 1), 
-	   ('second_user', '$2b$12$4cDj2mBFhCW/1OEPCDdvyebmmGY6Ua1SsvTJYiwuWO7TTEgcBxT7a', 'user2@gmail.com', 1);
+VALUES ('super_admin', '$6$super0admin$YH56BG7Sx9aUr9p5vDdS9APKhpdG4IqvXv6oIjZNOhQkFe3yYEc1CBis.SRXgSXiAxO8GjU6BHFLo7mwtUpce0', 'admin@gmail.com', 2),
+	   ('first_user', '$6$first0user$/WuckNXaAHXDPY.Jx/lOEl9wgWnBQ3alk5I8w7Jgg4OAVIvWGAFE5ynGpo2gHfgcAeXZ/Vg9Xxql3B5ZXzvC6/', 'user1@gmail.com', 1), 
+	   ('second_user', '$6$second0user$6J0Y.BuAc53plIr3vyYdp2k/XC/P1ZShpAvTFRqVQhiGwOIe1138qLspLD5EkTV8RnbGLMvv3.UEyuq8nWqRy0', 'user2@gmail.com', 1);
 
 INSERT INTO category (name_category)
 VALUES ('learning'),

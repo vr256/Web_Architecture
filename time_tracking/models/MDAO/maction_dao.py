@@ -38,6 +38,7 @@ class MAction_DAO(IAction_DAO):
             connection.cnx.commit()
         except mysql.connector.Error:
             logging.exception('')
+            connection.cnx.rollback()
         finally:
             cursor.close()
 
@@ -52,6 +53,7 @@ class MAction_DAO(IAction_DAO):
             connection.cnx.commit()
         except mysql.connector.Error:
             logging.exception('')
+            connection.cnx.rollback()
         finally:
             cursor.close()
 

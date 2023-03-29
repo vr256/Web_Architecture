@@ -1,8 +1,23 @@
 <html>
   <head>
-    <h1>Index page</h1>
+    <title>Index page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/style.css" rel="stylesheet" media="screen">
   </head>
   <body>
-
+    <div class="container">
+      <h1>Index page</h1>
+      <br>
+      {% if login %}
+        <p class="error">Welcome: {{ login }} </p>
+        <form action="/logout" method="post">
+            <input type="submit" value="Log out">
+        </form>
+      {% else %}
+      <form action="/login" method="post">
+        <input type="submit" value="Sing in">
+    </form>
+      {% endif %} 
+    </div>
   </body>
 </html>

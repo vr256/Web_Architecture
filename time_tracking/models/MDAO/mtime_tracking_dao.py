@@ -53,6 +53,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
             connection.cnx.commit()
         except mysql.connector.Error:
             logging.exception('')
+            connection.cnx.rollback()
         finally:
             cursor.close()
 
@@ -69,6 +70,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
             connection.cnx.commit()
         except mysql.connector.Error:
             logging.exception('')
+            connection.cnx.rollback()
         finally:
             cursor.close()
 

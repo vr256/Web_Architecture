@@ -1,5 +1,5 @@
 import functools
-import bcrypt
+from passlib.hash import sha512_crypt
 
 def singleton(cls):
     obj = None
@@ -11,11 +11,7 @@ def singleton(cls):
         return obj
     return wrapper
 
-def encode(password: str):
-    '''
-    Hashes given password using bcrypt
-    '''
-    byte_str = password.encode('utf-8')
-    salt = bcrypt.gensalt()
-    byte_pass = bcrypt.hashpw(byte_str, salt)
-    return byte_pass.decode('utf-8')
+def encrypt(password: str, key : str) -> str:
+    rounds = 5000
+    key = key.replace('_', '0')
+    return sha512_crypt.using(salt=key, rounds=rounds).hash(password)

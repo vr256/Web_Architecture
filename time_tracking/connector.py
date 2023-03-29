@@ -3,17 +3,10 @@ import logging
 from abc import ABCMeta, abstractmethod
 from .utills import singleton
 from mysql.connector import pooling, Error
+from .properties import *
 
 logging.basicConfig(level=logging.INFO, filename="logfile.txt", filemode="a+",
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
-POOL_SIZE = 5
-POOL_NAME = 'pool'
-db_config = {
-    'user': 'root',
-    'password': '123456',
-    'host': '127.0.0.1',
-    'database': 'time_tracking_db'
-}
 
 class IDatabase(metaclass=ABCMeta):
     @abstractmethod
