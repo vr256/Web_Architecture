@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
-from ..models.time_tracking import TimeTracking
+from .. import *
 
 class ITimeTracking_DAO(metaclass=ABCMeta):
     @abstractmethod

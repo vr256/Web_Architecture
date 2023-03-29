@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from typing import List, Union
-from ..models.user import User
+from .. import *
 
 class IUser_DAO(metaclass=ABCMeta):
     @abstractmethod

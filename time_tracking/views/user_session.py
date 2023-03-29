@@ -1,7 +1,7 @@
 from flask import request, render_template, redirect, url_for
 
 from flask import current_app as app
-from ..models.user import User
+from ..models import User
 from ..utills import encode
 from ..factory import DB_Factory, Connection_Factory, DAO_Factory
 

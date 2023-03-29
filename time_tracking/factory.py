@@ -1,16 +1,16 @@
-from .MDAO import mactivity_dao, mcategory_dao, mrole_dao, mtime_tracking_dao, muser_dao, maction_dao
-from .connector import *
+from .models import MUser_DAO, MRole_DAO, MCategory_DAO, MActivity_DAO, MAction_DAO, MTimeTracking_DAO
+from .connector import IDatabase, IConnection, MySQL_DB, MySQL_CNX
 
 class MySQL_DAO_Factory:
     @staticmethod
     def get_dao_implementation(connection : IConnection, option : str):
         m_dao = {
-            'user': muser_dao.MUser_DAO, 
-            'role': mrole_dao.MRole_DAO,
-            'category': mcategory_dao.MCategory_DAO,
-            'activity': mactivity_dao.MActivity_DAO,
-            'action': maction_dao.MAction_DAO,
-            'time_tracking': mtime_tracking_dao.MTimeTracking_DAO
+            'user': MUser_DAO, 
+            'role': MRole_DAO,
+            'category': MCategory_DAO,
+            'activity': MActivity_DAO,
+            'action': MAction_DAO,
+            'time_tracking': MTimeTracking_DAO
                  }
         if option.lower() not in m_dao:
             return False
