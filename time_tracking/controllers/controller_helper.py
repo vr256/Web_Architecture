@@ -1,12 +1,7 @@
 import logging
 import os
 
-from flask import request, render_template, redirect, url_for, session
-
 from flask import current_app as app
-from ..utills import encrypt
-from ..factory import Connection_Factory, DAO_Factory
-from ..properties import ERRORS
 from ..commands import general_login, general_index, auth_error, \
                        back_to_login, logout, show_users
 
@@ -14,7 +9,6 @@ logging.basicConfig(level=logging.DEBUG, filename="../logfile.txt", filemode="a+
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
 
 app.config['SECRET_KEY'] = os.urandom(20).hex()
-
 
 app.add_url_rule('/login/', view_func=general_login, methods=['GET', 'POST'])
 

@@ -1,3 +1,5 @@
+APP_VERSION = '1.1'
+
 # DB config
 POOL_SIZE = 5
 POOL_NAME = 'pool'
