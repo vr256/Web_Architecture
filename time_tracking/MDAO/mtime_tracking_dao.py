@@ -4,9 +4,9 @@ import mysql.connector
 from typing import List
 from ..utills import singleton
 from ..IDAO.itime_tracking import ITimeTracking_DAO
-from ..entity.time_tracking import TimeTracking
+from ..models.time_tracking import TimeTracking
 
-logging.basicConfig(level=logging.DEBUG, filename="logfile.txt", filemode="a+",
+logging.basicConfig(level=logging.DEBUG, filename="../logfile.txt", filemode="a+",
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
 
 @singleton

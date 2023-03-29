@@ -4,7 +4,7 @@ from abc import ABCMeta, abstractmethod
 from .utills import singleton
 from mysql.connector import pooling, Error
 
-logging.basicConfig(level=logging.INFO, filename="logfile", filemode="a+",
+logging.basicConfig(level=logging.INFO, filename="logfile.txt", filemode="a+",
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
 POOL_SIZE = 5
 POOL_NAME = 'pool'

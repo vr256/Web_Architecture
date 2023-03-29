@@ -4,9 +4,9 @@ import mysql.connector
 from typing import List, Union
 from ..utills import singleton
 from ..IDAO.irole import IRole_DAO
-from ..entity.role import Role
+from ..models.role import Role
 
-logging.basicConfig(level=logging.DEBUG, filename="logfile.txt", filemode="a+",
+logging.basicConfig(level=logging.DEBUG, filename="../logfile.txt", filemode="a+",
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
 
 @singleton
