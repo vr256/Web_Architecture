@@ -14,10 +14,26 @@
             <input type="submit" value="Log out">
         </form>
       {% else %}
-      <form action="/login" method="post">
-        <input type="submit" value="Sing in">
-    </form>
+        <form action="/login" method="post">
+          <input type="submit" value="Sing in">
+      </form>
       {% endif %} 
+
+      {% if role == 'admin' %}
+        <form action="/show_users" method="post">
+          <input type="submit" value="Show all users">
+        </form>
+      {% endif %}
+        
+
+      {% if users %}
+      <ol>
+        {% for user in users %}
+            <li>{{ user}}</li>
+        {% endfor %}
+      </ol>
+      {% endif %} 
+
     </div>
   </body>
 </html>

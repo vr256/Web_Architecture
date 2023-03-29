@@ -11,6 +11,13 @@ class IRole_DAO(metaclass=ABCMeta):
         '''
 
     @abstractmethod
+    def find_by_id(self, connection : IConnection, id : int) -> Union[Role, bool]:
+        '''
+        Should return role with given name 
+        or False if no such role found
+        '''
+
+    @abstractmethod
     def find_by_name(self, connection : IConnection, name : str) -> Union[Role, bool]:
         '''
         Should return role with given name 

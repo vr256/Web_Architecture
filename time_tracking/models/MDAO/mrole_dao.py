@@ -18,6 +18,16 @@ class MRole_DAO(IRole_DAO):
         cursor.close()
         return roles
 
+    def find_by_id(self, connection, id : int) -> Union[Role, bool]:
+        cursor = connection.cnx.cursor()
+        query = f'SELECT * FROM role WHERE role_id="{str(id)}";'
+        cursor.execute(query)
+        result = cursor.fetchall()
+        cursor.close()
+        if result:
+            return Role(*result[0])
+        return False
+
     def find_by_name(self, connection, name : str) -> Union[Role, bool]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM role WHERE name_role="{name}";'
