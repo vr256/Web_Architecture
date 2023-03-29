@@ -1,35 +1,36 @@
 from abc import ABCMeta, abstractmethod
 from typing import List, Union
 from .. import *
+from ...connector import IConnection
 
 class ICategory_DAO(metaclass=ABCMeta):
     @abstractmethod
-    def select_all(self) -> List[Category]:
+    def select_all(self, connection : IConnection) -> List[Category]:
         '''
         Should return list of categories
         '''
 
     @abstractmethod
-    def find_by_name(self, name : str) -> Union[Category, bool]:
+    def find_by_name(self, connection : IConnection, name : str) -> Union[Category, bool]:
         '''
         Should return category with given name 
         or False if no such category found
         '''
 
     @abstractmethod
-    def insert(self, categories : List[Category]):
+    def insert(self, connection : IConnection, categories : List[Category]):
         '''
         Should insert given list of categories
         '''
 
     @abstractmethod
-    def update(self, categories : List[Category]):
+    def update(self, connection : IConnection, categories : List[Category]):
         '''
         Should update given list of categories
         '''
 
     @abstractmethod
-    def delete(self, categories : List[Category]):
+    def delete(self, connection : IConnection, categories : List[Category]):
         '''
         Should delete given list of categories 
         '''

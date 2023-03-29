@@ -1,9 +1,9 @@
 from .models import MUser_DAO, MRole_DAO, MCategory_DAO, MActivity_DAO, MAction_DAO, MTimeTracking_DAO
-from .connector import IDatabase, IConnection, MySQL_DB, MySQL_CNX
+from .connector import MySQL_DB, MySQL_CNX
 
 class MySQL_DAO_Factory:
     @staticmethod
-    def get_dao_implementation(connection : IConnection, option : str):
+    def get_dao_implementation(option : str):
         m_dao = {
             'user': MUser_DAO, 
             'role': MRole_DAO,
@@ -14,7 +14,7 @@ class MySQL_DAO_Factory:
                  }
         if option.lower() not in m_dao:
             return False
-        return m_dao[option.lower()](connection)
+        return m_dao[option.lower()]()
 
 
 class DAO_Factory:

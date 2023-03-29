@@ -10,19 +10,16 @@ logging.basicConfig(level=logging.DEBUG, filename="../logfile.txt", filemode="a+
 
 @singleton
 class MCategory_DAO(ICategory_DAO):
-    def __init__(self, connection):
-        self.cnx = connection.cnx
-
-    def select_all(self) -> List[Category]:
-        cursor = self.cnx.cursor()
+    def select_all(self, connection) -> List[Category]:
+        cursor = connection.cnx.cursor()
         query = 'SELECT * FROM category;'
         cursor.execute(query)
         categories = [Category(*i) for i in cursor.fetchall()]
         cursor.close()
         return categories
 
-    def find_by_name(self, name : str) -> Union[Category, bool]:
-        cursor = self.cnx.cursor()
+    def find_by_name(self, connection, name : str) -> Union[Category, bool]:
+        cursor = connection.cnx.cursor()
         query = f'SELECT * FROM category WHERE name_category="{name}";'
         cursor.execute(query)
         result = cursor.fetchall()
@@ -31,38 +28,38 @@ class MCategory_DAO(ICategory_DAO):
             return Category(*result[0])
         return False
 
-    def insert(self, categories : List[Category]):
+    def insert(self, connection, categories : List[Category]):
         try:
-            cursor = self.cnx.cursor()
+            cursor = connection.cnx.cursor()
             for category in categories:
                 query = 'INSERT INTO category (name_category)\n' + \
                         f'VALUES ("{category.name_category}");'
                 cursor.execute(query)
-            self.cnx.commit()
+            connection.cnx.commit()
         except mysql.connector.Error:
             logging.exception('')
         finally:
             cursor.close()
 
-    def update(self, categories : List[Category]):
+    def update(self, connection, categories : List[Category]):
         try:
-            cursor = self.cnx.cursor()
+            cursor = connection.cnx.cursor()
             for category in categories:
                 query = 'UPDATE category\n' + \
                         f'SET name_category="{category.name_category}"\n' + \
                         f'WHERE category_id={category.category_id};'
                 cursor.execute(query)
-            self.cnx.commit()
+            connection.cnx.commit()
         except mysql.connector.Error:
             logging.exception('')
         finally:
             cursor.close()
 
-    def delete(self, categories : List[Category]):
-        cursor = self.cnx.cursor()
+    def delete(self, connection, categories : List[Category]):
+        cursor = connection.cnx.cursor()
         for category in categories:
             query = 'DELETE FROM category\n' + \
                     f'WHERE name_category="{category.name_category}";'
             cursor.execute(query)
-        self.cnx.commit()
+        connection.cnx.commit()
         cursor.close()
