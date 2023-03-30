@@ -1,5 +1,5 @@
 from flask import request, render_template, redirect, url_for
-from ..properties.config import ERRORS
+from ..properties import ERRORS
 
 def auth_error():
     code = request.args['code']

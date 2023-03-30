@@ -4,7 +4,8 @@ import mysql.connector
 from typing import List
 from ....tools import singleton
 from ...entities import TimeTracking
-from ...DAO import ITimeTracking_DAO
+from ..IDAO import ITimeTracking_DAO
+from ....tools import IConnection
 from ....properties import LOG_FORMAT, LOG_PATHES
 
 logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__], 
@@ -12,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 
 @singleton
 class MTimeTracking_DAO(ITimeTracking_DAO):
-    def select_all(self, connection) -> List[TimeTracking]:
+    def select_all(self, connection : IConnection) -> List[TimeTracking]:
         cursor = connection.cnx.cursor()
         query = 'SELECT * FROM time_tracking;'
         cursor.execute(query)
@@ -20,7 +21,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
         cursor.close()
         return time_trackings
 
-    def find_by_user_id(self, connection, user_id : int) -> List[TimeTracking]:
+    def find_by_user_id(self, connection : IConnection, user_id : int) -> List[TimeTracking]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM time_tracking WHERE user_id={user_id};'
         cursor.execute(query)
@@ -28,7 +29,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
         cursor.close()
         return time_trackings
     
-    def find_by_activity_id(self, connection, activity_id : int) -> List[TimeTracking]:
+    def find_by_activity_id(self, connection : IConnection, activity_id : int) -> List[TimeTracking]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM time_tracking WHERE activity_id={activity_id};'
         cursor.execute(query)
@@ -36,7 +37,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
         cursor.close()
         return time_trackings
     
-    def find_by_action_id(self, connection, action_id : int) -> List[TimeTracking]:
+    def find_by_action_id(self, connection : IConnection, action_id : int) -> List[TimeTracking]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM time_tracking WHERE action_id={action_id};'
         cursor.execute(query)
@@ -44,7 +45,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
         cursor.close()
         return time_trackings
 
-    def insert(self, connection, time_trackings : List[TimeTracking]):
+    def insert(self, connection : IConnection, time_trackings : List[TimeTracking]):
         try:
             cursor = connection.cnx.cursor()
             for time_track in time_trackings:
@@ -59,7 +60,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
         finally:
             cursor.close()
 
-    def update(self, connection, time_trackings : List[TimeTracking]):
+    def update(self, connection : IConnection, time_trackings : List[TimeTracking]):
         try:
             cursor = connection.cnx.cursor()
             for time_track in time_trackings:
@@ -76,7 +77,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
         finally:
             cursor.close()
 
-    def delete(self, connection, time_trackings : List[TimeTracking]):
+    def delete(self, connection : IConnection, time_trackings : List[TimeTracking]):
         cursor = connection.cnx.cursor()
         for time_track in time_trackings:
             query = 'DELETE FROM time_tracking\n' + \

@@ -1,5 +1,4 @@
-from flask import request, session, render_template, redirect, url_for
-from flask import current_app as app
+from flask import request, session, render_template, redirect, url_for, current_app as app
 from ..services import AuthService
 
 def general_login():

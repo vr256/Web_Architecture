@@ -18,7 +18,7 @@ LOG_PATHES = {
 # DB config
 POOL_SIZE = 5
 POOL_NAME = 'pool'
-db_config = {
+DB_CONFIG = {
     'user': 'root',
     'password': '123456',
     'host': '127.0.0.1',

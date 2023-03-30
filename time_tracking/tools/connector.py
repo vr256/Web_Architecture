@@ -2,8 +2,8 @@ import logging
 
 from abc import ABCMeta, abstractmethod
 from mysql.connector import pooling, Error
-from .utills import singleton
-from ..properties import LOG_FORMAT, LOG_PATHES, POOL_NAME, POOL_SIZE, db_config
+from ..tools import singleton
+from ..properties import LOG_FORMAT, LOG_PATHES, POOL_NAME, POOL_SIZE, DB_CONFIG
 
 logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
                     filemode="a+", format=LOG_FORMAT)
@@ -22,20 +22,6 @@ class IDatabase(metaclass=ABCMeta):
         '''
 
 
-@singleton
-class MySQL_DB(IDatabase):
-    def connect(self):
-        try:
-            self.cnx_pool = pooling.MySQLConnectionPool(pool_name = POOL_NAME,
-                                                        pool_size = POOL_SIZE,
-                                                        **db_config)
-        except Error:
-            logging.exception()
-
-    def close(self):
-        self.cnx_pool._remove_connections()
-
-
 class IConnection(metaclass=ABCMeta):
     @abstractmethod
     def __init__(self, db : IDatabase):
@@ -48,6 +34,20 @@ class IConnection(metaclass=ABCMeta):
         '''
         Should put connection back to the pool
         '''
+
+
+@singleton
+class MySQL_DB(IDatabase):
+    def connect(self):
+        try:
+            self.cnx_pool = pooling.MySQLConnectionPool(pool_name = POOL_NAME,
+                                                        pool_size = POOL_SIZE,
+                                                        **DB_CONFIG)
+        except Error:
+            logging.exception()
+
+    def close(self):
+        self.cnx_pool._remove_connections()
 
 
 class MySQL_CNX(IConnection):
