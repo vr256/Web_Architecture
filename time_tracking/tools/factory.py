@@ -1,5 +1,5 @@
 from ..models import MUser_DAO, MRole_DAO, MCategory_DAO, MActivity_DAO, MAction_DAO, MTimeTracking_DAO
-from ..tools import MySQL_DB, MySQL_CNX
+from .connector import MySQL_DB, MySQL_CNX
 
 class MySQL_DAO_Factory:
     @staticmethod

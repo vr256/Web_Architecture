@@ -5,7 +5,6 @@ from typing import List, Union
 from ....tools import singleton
 from ...entities import Action
 from ..IDAO import IAction_DAO
-from ....tools import IConnection
 from ....properties import LOG_FORMAT, LOG_PATHES
 
 logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__], 
@@ -13,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 
 @singleton
 class MAction_DAO(IAction_DAO):
-    def select_all(self, connection : IConnection) -> List[Action]:
+    def select_all(self, connection) -> List[Action]:
         cursor = connection.cnx.cursor()
         query = 'SELECT * FROM action;'
         cursor.execute(query)
@@ -21,7 +20,7 @@ class MAction_DAO(IAction_DAO):
         cursor.close()
         return actions
 
-    def find_by_name(self, connection : IConnection, name : str) -> Union[Action, bool]:
+    def find_by_name(self, connection, name : str) -> Union[Action, bool]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM action WHERE name_action="{name}";'
         cursor.execute(query)
@@ -31,7 +30,7 @@ class MAction_DAO(IAction_DAO):
             return Action(*result[0])
         return False
 
-    def insert(self, connection : IConnection, actions : List[Action]):
+    def insert(self, connection, actions : List[Action]):
         try:
             cursor = connection.cnx.cursor()
             for action in actions:
@@ -45,7 +44,7 @@ class MAction_DAO(IAction_DAO):
         finally:
             cursor.close()
 
-    def update(self, connection : IConnection, actions : List[Action]):
+    def update(self, connection, actions : List[Action]):
         try:
             cursor = connection.cnx.cursor()
             for action in actions:
@@ -60,7 +59,7 @@ class MAction_DAO(IAction_DAO):
         finally:
             cursor.close()
 
-    def delete(self, connection : IConnection, actions : List[Action]):
+    def delete(self, connection, actions : List[Action]):
         cursor = connection.cnx.cursor()
         for action in actions:
             query = 'DELETE FROM action\n' + \

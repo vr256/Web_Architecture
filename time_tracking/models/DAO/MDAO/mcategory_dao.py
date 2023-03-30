@@ -5,7 +5,6 @@ from typing import List, Union
 from ....tools import singleton
 from ...entities import Category
 from ..IDAO import ICategory_DAO
-from ....tools import IConnection
 from ....properties import LOG_FORMAT, LOG_PATHES
 
 logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__], 
@@ -13,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 
 @singleton
 class MCategory_DAO(ICategory_DAO):
-    def select_all(self, connection : IConnection) -> List[Category]:
+    def select_all(self, connection) -> List[Category]:
         cursor = connection.cnx.cursor()
         query = 'SELECT * FROM category;'
         cursor.execute(query)
@@ -21,7 +20,7 @@ class MCategory_DAO(ICategory_DAO):
         cursor.close()
         return categories
 
-    def find_by_name(self, connection : IConnection, name : str) -> Union[Category, bool]:
+    def find_by_name(self, connection, name : str) -> Union[Category, bool]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM category WHERE name_category="{name}";'
         cursor.execute(query)
@@ -31,7 +30,7 @@ class MCategory_DAO(ICategory_DAO):
             return Category(*result[0])
         return False
 
-    def insert(self, connection : IConnection, categories : List[Category]):
+    def insert(self, connection, categories : List[Category]):
         try:
             cursor = connection.cnx.cursor()
             for category in categories:
@@ -45,7 +44,7 @@ class MCategory_DAO(ICategory_DAO):
         finally:
             cursor.close()
 
-    def update(self, connection : IConnection, categories : List[Category]):
+    def update(self, connection, categories : List[Category]):
         try:
             cursor = connection.cnx.cursor()
             for category in categories:
@@ -60,7 +59,7 @@ class MCategory_DAO(ICategory_DAO):
         finally:
             cursor.close()
 
-    def delete(self, connection : IConnection, categories : List[Category]):
+    def delete(self, connection, categories : List[Category]):
         cursor = connection.cnx.cursor()
         for category in categories:
             query = 'DELETE FROM category\n' + \

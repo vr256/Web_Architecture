@@ -5,7 +5,6 @@ from typing import List, Union
 from ....tools import singleton
 from ...entities import Activity
 from ..IDAO import IActivity_DAO
-from ....tools import IConnection
 from ....properties import LOG_FORMAT, LOG_PATHES
 
 logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__], 
@@ -13,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 
 @singleton
 class MActivity_DAO(IActivity_DAO):
-    def select_all(self, connection : IConnection) -> List[Activity]:
+    def select_all(self, connection) -> List[Activity]:
         cursor = connection.cnx.cursor()
         query = 'SELECT * FROM activity;'
         cursor.execute(query)
@@ -21,7 +20,7 @@ class MActivity_DAO(IActivity_DAO):
         cursor.close()
         return roles
 
-    def find_by_name(self, connection : IConnection, name : str) -> Union[Activity, bool]:
+    def find_by_name(self, connection, name : str) -> Union[Activity, bool]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM activity WHERE name_activity="{name}";'
         cursor.execute(query)
@@ -31,7 +30,7 @@ class MActivity_DAO(IActivity_DAO):
             return Activity(*result[0])
         return False
 
-    def insert(self, connection : IConnection, activities : List[Activity]):
+    def insert(self, connection, activities : List[Activity]):
         try:
             cursor = connection.cnx.cursor()
             for activity in activities:
@@ -45,7 +44,7 @@ class MActivity_DAO(IActivity_DAO):
         finally:
             cursor.close()
 
-    def update(self, connection : IConnection, activities : List[Activity]):
+    def update(self, connection, activities : List[Activity]):
         try:
             cursor = connection.cnx.cursor()
             for activity in activities:
@@ -60,7 +59,7 @@ class MActivity_DAO(IActivity_DAO):
         finally:
             cursor.close()
 
-    def delete(self, connection : IConnection, activities : List[Activity]):
+    def delete(self, connection, activities : List[Activity]):
         cursor = connection.cnx.cursor()
         for activity in activities:
             query = 'DELETE FROM activity\n' + \

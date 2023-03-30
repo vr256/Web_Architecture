@@ -5,7 +5,6 @@ from typing import List, Union
 from ....tools import singleton
 from ...entities import Role
 from ..IDAO import IRole_DAO
-from ....tools import IConnection
 from ....properties import LOG_FORMAT, LOG_PATHES
 
 logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__], 
@@ -13,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 
 @singleton
 class MRole_DAO(IRole_DAO):
-    def select_all(self, connection : IConnection) -> List[Role]:
+    def select_all(self, connection) -> List[Role]:
         cursor = connection.cnx.cursor()
         query = 'SELECT * FROM role;'
         cursor.execute(query)
@@ -21,7 +20,7 @@ class MRole_DAO(IRole_DAO):
         cursor.close()
         return roles
 
-    def find_by_id(self, connection : IConnection, id : int) -> Union[Role, bool]:
+    def find_by_id(self, connection, id : int) -> Union[Role, bool]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM role WHERE role_id="{str(id)}";'
         cursor.execute(query)
@@ -31,7 +30,7 @@ class MRole_DAO(IRole_DAO):
             return Role(*result[0])
         return False
 
-    def find_by_name(self, connection : IConnection, name : str) -> Union[Role, bool]:
+    def find_by_name(self, connection, name : str) -> Union[Role, bool]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM role WHERE name_role="{name}";'
         cursor.execute(query)
@@ -41,7 +40,7 @@ class MRole_DAO(IRole_DAO):
             return Role(*result[0])
         return False
 
-    def insert(self, connection : IConnection, roles : List[Role]):
+    def insert(self, connection, roles : List[Role]):
         try:
             cursor = connection.cnx.cursor()
             for role in roles:
@@ -55,7 +54,7 @@ class MRole_DAO(IRole_DAO):
         finally:
             cursor.close()
 
-    def update(self, connection : IConnection, roles : List[Role]):
+    def update(self, connection, roles : List[Role]):
         try:
             cursor = connection.cnx.cursor()
             for role in roles:
@@ -70,7 +69,7 @@ class MRole_DAO(IRole_DAO):
         finally:
             cursor.close()
 
-    def delete(self, connection : IConnection, roles : List[Role]):
+    def delete(self, connection, roles : List[Role]):
         cursor = connection.cnx.cursor()
         for role in roles:
             query = 'DELETE FROM role\n' + \

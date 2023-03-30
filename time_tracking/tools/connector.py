@@ -12,7 +12,7 @@ class IDatabase(metaclass=ABCMeta):
     @abstractmethod
     def connect(self):
         '''
-        Should connect to DB using connection pool
+        Should connect to DB using connectionpool
         '''
 
     @abstractmethod
@@ -26,13 +26,13 @@ class IConnection(metaclass=ABCMeta):
     @abstractmethod
     def __init__(self, db : IDatabase):
         '''
-        Should take connection from the pool
+        Should take connectionfrom the pool
         '''
 
     @abstractmethod
     def __del__(self):
         '''
-        Should put connection back to the pool
+        Should put connectionback to the pool
         '''
 
 

@@ -5,7 +5,6 @@ from typing import List, Union
 from ....tools import singleton
 from ...entities import User
 from ..IDAO import IUser_DAO
-from ....tools import IConnection
 from ....properties import LOG_FORMAT, LOG_PATHES
 
 logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__], 
@@ -13,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 
 @singleton
 class MUser_DAO(IUser_DAO):
-    def select_all(self, connection : IConnection) -> List[User]:
+    def select_all(self, connection) -> List[User]:
         cursor = connection.cnx.cursor()
         query = 'SELECT * FROM user;'
         cursor.execute(query)
@@ -21,7 +20,7 @@ class MUser_DAO(IUser_DAO):
         cursor.close()
         return users
 
-    def find_by_login(self, connection : IConnection, login : str) -> Union[User, bool]:
+    def find_by_login(self, connection, login : str) -> Union[User, bool]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM user WHERE login="{login}";'
         cursor.execute(query)
@@ -31,7 +30,7 @@ class MUser_DAO(IUser_DAO):
             return User(*result[0])
         return False
     
-    def find_by_email(self, connection : IConnection, email : str) -> Union[User, bool]:
+    def find_by_email(self, connection, email : str) -> Union[User, bool]:
         cursor = connection.cnx.cursor()
         query = f'SELECT * FROM user WHERE email="{email}";'
         cursor.execute(query)
@@ -41,7 +40,7 @@ class MUser_DAO(IUser_DAO):
             return User(*result[0])
         return False
     
-    def insert(self, connection : IConnection, users : List[User]):
+    def insert(self, connection, users : List[User]):
         try:
             cursor = connection.cnx.cursor()
             for user in users:
@@ -55,7 +54,7 @@ class MUser_DAO(IUser_DAO):
         finally:
             cursor.close()
 
-    def update(self, connection : IConnection, users : List[User]):
+    def update(self, connection, users : List[User]):
         try:
             cursor = connection.cnx.cursor()
             for user in users:
@@ -71,7 +70,7 @@ class MUser_DAO(IUser_DAO):
         finally:
             cursor.close()
 
-    def delete(self, connection : IConnection, users : List[User]):
+    def delete(self, connection, users : List[User]):
         cursor = connection.cnx.cursor()
         for user in users:
             query = 'DELETE FROM user\n' + \
