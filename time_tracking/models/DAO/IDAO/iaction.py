@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List, Union
-from .. import *
-from ...connector import IConnection
+from ...entities import Action
+from ....tools import IConnection
 
 class IAction_DAO(metaclass=ABCMeta):
     @abstractmethod

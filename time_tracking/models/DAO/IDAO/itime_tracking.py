@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import List
-from .. import *
-from ...connector import IConnection
+from ...entities import TimeTracking
+from ....tools import IConnection
 
 class ITimeTracking_DAO(metaclass=ABCMeta):
     @abstractmethod

@@ -1,4 +1,4 @@
-from .models import MUser_DAO, MRole_DAO, MCategory_DAO, MActivity_DAO, MAction_DAO, MTimeTracking_DAO
+from ..models import MUser_DAO, MRole_DAO, MCategory_DAO, MActivity_DAO, MAction_DAO, MTimeTracking_DAO
 from .connector import MySQL_DB, MySQL_CNX
 
 class MySQL_DAO_Factory:

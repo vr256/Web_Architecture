@@ -3,7 +3,7 @@ import logging
 from abc import ABCMeta, abstractmethod
 from mysql.connector import pooling, Error
 from .utills import singleton
-from .config import LOG_FORMAT, LOG_PATHES, POOL_NAME, POOL_SIZE, db_config
+from ..properties import LOG_FORMAT, LOG_PATHES, POOL_NAME, POOL_SIZE, db_config
 
 logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
                     filemode="a+", format=LOG_FORMAT)

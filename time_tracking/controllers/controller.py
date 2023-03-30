@@ -1,6 +1,6 @@
 from flask import Flask, Request, render_template
 from werkzeug.datastructures import ImmutableOrderedMultiDict
-from ..config import APP_VERSION
+from ..properties import APP_VERSION
 
 class CustomRequest(Request):
     parameter_storage_class = ImmutableOrderedMultiDict

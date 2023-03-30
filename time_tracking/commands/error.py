@@ -1,10 +1,5 @@
-import logging
-
 from flask import request, render_template, redirect, url_for
-from ..config import ERRORS, LOG_FORMAT, LOG_PATHES
-
-logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__], 
-                    filemode="a+", format=LOG_FORMAT)
+from ..properties.config import ERRORS
 
 def auth_error():
     code = request.args['code']

@@ -2,9 +2,10 @@ import logging
 import mysql.connector
 
 from typing import List, Union
-from ...utills import singleton
-from .. import *
-from ...config import LOG_FORMAT, LOG_PATHES
+from ....tools import singleton
+from ...entities import Activity
+from ...DAO import IActivity_DAO
+from ....properties import LOG_FORMAT, LOG_PATHES
 
 logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__], 
                     filemode="a+", format=LOG_FORMAT)
