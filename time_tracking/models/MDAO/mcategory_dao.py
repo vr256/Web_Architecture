@@ -4,9 +4,10 @@ import mysql.connector
 from typing import List, Union
 from ...utills import singleton
 from .. import *
+from ...config import LOG_FORMAT, LOG_PATHES
 
-logging.basicConfig(level=logging.DEBUG, filename="../logfile.txt", filemode="a+",
-                    format="%(asctime)-15s %(levelname)-8s %(message)s")
+logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__], 
+                    filemode="a+", format=LOG_FORMAT)
 
 @singleton
 class MCategory_DAO(ICategory_DAO):

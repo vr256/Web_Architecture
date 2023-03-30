@@ -1,9 +1,10 @@
-import functools
+from functools import wraps
 from passlib.hash import sha512_crypt
+
 
 def singleton(cls):
     obj = None
-    @functools.wraps(cls)
+    @wraps(cls)
     def wrapper(*args, **kwargs):
         nonlocal obj
         if obj is None:
@@ -11,7 +12,12 @@ def singleton(cls):
         return obj
     return wrapper
 
+
 def encrypt(password: str, key : str) -> str:
+    '''
+    Hashes given password by 
+    key [should be login] via SHA-512
+    '''
     rounds = 5000
     key = key.replace('_', '0')
     return sha512_crypt.using(salt=key, rounds=rounds).hash(password)

@@ -1,12 +1,13 @@
 import logging
 
-from flask import request, render_template, redirect, url_for, session
+from flask import request, session, render_template, redirect, url_for
 from flask import current_app as app
 from ..utills import encrypt
 from ..factory import Connection_Factory, DAO_Factory
+from ..config import LOG_FORMAT, LOG_PATHES
 
-logging.basicConfig(level=logging.DEBUG, filename="../logfile.txt", filemode="a+",
-                    format="%(asctime)-15s %(levelname)-8s %(message)s")
+logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__], 
+                    filemode="a+", format=LOG_FORMAT)
 
 def general_login():
     with app.app_context():

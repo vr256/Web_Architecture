@@ -1,12 +1,12 @@
 import logging
 
 from abc import ABCMeta, abstractmethod
-from .utills import singleton
 from mysql.connector import pooling, Error
-from .properties import *
+from .utills import singleton
+from .config import LOG_FORMAT, LOG_PATHES, POOL_NAME, POOL_SIZE, db_config
 
-logging.basicConfig(level=logging.INFO, filename="logfile.txt", filemode="a+",
-                    format="%(asctime)-15s %(levelname)-8s %(message)s")
+logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
+                    filemode="a+", format=LOG_FORMAT)
 
 class IDatabase(metaclass=ABCMeta):
     @abstractmethod
