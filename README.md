@@ -9,10 +9,11 @@
 Пользователь может отправить запрос на добавление/удаление Активности.       
 
 ## Tech stack
-DBMS: MySQL      
-Server: Waitress (pure Python WSGI server)      
-Packaging: setuptools      
-Patterns: DAO, Command, MVC (MTV in Python)      
+| DBMS      | MySQL                              |
+|-----------|------------------------------------|
+| Server    | Waitress (pure Python WSGI server) |
+| Packaging | setuptools                         |
+| Patterns  | DAO, Command, MVC (MTV in Python)  |    
 
 ## How to run
 1. git clone https://github.com/konovaliuk/time_tracking.git 
