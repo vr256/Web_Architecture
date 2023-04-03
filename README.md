@@ -14,7 +14,7 @@ Server: Waitress (pure Python WSGI server)
 Packaging: setuptools      
 Patterns: DAO, Command, MVC (MTV in Python)      
 
-## How to install & run
+## How to run
 1. git clone https://github.com/konovaliuk/time_tracking.git 
 2. cd time_tracking  
 3. pip install venv  
