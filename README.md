@@ -1,4 +1,6 @@
 # Time tracking system
+- **Author**: Volodymyr Rizun     
+- **Group**: KI-02    
 
 ## About
 Система Time-Tracking. Администратор закрепляет за пользователем      
@@ -12,7 +14,7 @@ Server: Waitress (pure Python WSGI server)
 Packaging: setuptools      
 Patterns: DAO, Command, MVC (MTV in Python)      
 
-## How to run
+## How to install
 1. git clone https://github.com/konovaliuk/Rizun_Time_tracking.git  
 2. cd Rizun_Time_tracking  
 3. pip install venv  
