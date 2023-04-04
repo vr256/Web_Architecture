@@ -13,32 +13,44 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 @singleton
 class MRole_DAO(IRole_DAO):
     def select_all(self, connection) -> List[Role]:
-        cursor = connection.cnx.cursor()
-        query = 'SELECT * FROM role;'
-        cursor.execute(query)
-        roles = [Role(*i) for i in cursor.fetchall()]
-        cursor.close()
-        return roles
+        try:
+            cursor = connection.cnx.cursor()
+            query = 'SELECT * FROM role;'
+            cursor.execute(query)
+            roles = [Role(*i) for i in cursor.fetchall()]
+            return roles
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
 
     def find_by_id(self, connection, id : int) -> Union[Role, bool]:
-        cursor = connection.cnx.cursor()
-        query = f'SELECT * FROM role WHERE role_id="{str(id)}";'
-        cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        if result:
-            return Role(*result[0])
-        return False
+        try:
+            cursor = connection.cnx.cursor()
+            query = f'SELECT * FROM role WHERE role_id="{str(id)}";'
+            cursor.execute(query)
+            result = cursor.fetchall()
+            if result:
+                return Role(*result[0])
+            return False
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
 
     def find_by_name(self, connection, name : str) -> Union[Role, bool]:
-        cursor = connection.cnx.cursor()
-        query = f'SELECT * FROM role WHERE name_role="{name}";'
-        cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        if result:
-            return Role(*result[0])
-        return False
+        try:
+            cursor = connection.cnx.cursor()
+            query = f'SELECT * FROM role WHERE name_role="{name}";'
+            cursor.execute(query)
+            result = cursor.fetchall()
+            if result:
+                return Role(*result[0])
+            return False
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
 
     def insert(self, connection, roles : List[Role]):
         try:
@@ -70,10 +82,15 @@ class MRole_DAO(IRole_DAO):
             cursor.close()
 
     def delete(self, connection, roles : List[Role]):
-        cursor = connection.cnx.cursor()
-        for role in roles:
-            query = 'DELETE FROM role\n' + \
-                    f'WHERE name_role="{role.name_role}";'
-            cursor.execute(query)
-        connection.cnx.commit()
-        cursor.close()
+        try:
+            cursor = connection.cnx.cursor()
+            for role in roles:
+                query = 'DELETE FROM role\n' + \
+                        f'WHERE name_role="{role.name_role}";'
+                cursor.execute(query)
+            connection.cnx.commit()
+        except mysql.connector.Error:
+            logging.exception('')
+            connection.cnx.rollback()
+        finally:
+            cursor.close()

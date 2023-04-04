@@ -13,22 +13,30 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 @singleton
 class MActivity_DAO(IActivity_DAO):
     def select_all(self, connection) -> List[Activity]:
-        cursor = connection.cnx.cursor()
-        query = 'SELECT * FROM activity;'
-        cursor.execute(query)
-        roles = [Activity(*i) for i in cursor.fetchall()]
-        cursor.close()
-        return roles
+        try:
+            cursor = connection.cnx.cursor()
+            query = 'SELECT * FROM activity;'
+            cursor.execute(query)
+            roles = [Activity(*i) for i in cursor.fetchall()]
+            return roles
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
 
     def find_by_name(self, connection, name : str) -> Union[Activity, bool]:
-        cursor = connection.cnx.cursor()
-        query = f'SELECT * FROM activity WHERE name_activity="{name}";'
-        cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        if result:
-            return Activity(*result[0])
-        return False
+        try:
+            cursor = connection.cnx.cursor()
+            query = f'SELECT * FROM activity WHERE name_activity="{name}";'
+            cursor.execute(query)
+            result = cursor.fetchall()
+            if result:
+                return Activity(*result[0])
+            return False
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
 
     def insert(self, connection, activities : List[Activity]):
         try:
@@ -60,10 +68,15 @@ class MActivity_DAO(IActivity_DAO):
             cursor.close()
 
     def delete(self, connection, activities : List[Activity]):
-        cursor = connection.cnx.cursor()
-        for activity in activities:
-            query = 'DELETE FROM activity\n' + \
-                    f'WHERE name_activity="{activity.name_activity}";'
-            cursor.execute(query)
-        connection.cnx.commit()
-        cursor.close()
+        try:
+            cursor = connection.cnx.cursor()
+            for activity in activities:
+                query = 'DELETE FROM activity\n' + \
+                        f'WHERE name_activity="{activity.name_activity}";'
+                cursor.execute(query)
+            connection.cnx.commit()
+        except mysql.connector.Error:
+            logging.exception('')
+            connection.cnx.rollback()
+        finally:
+            cursor.close()

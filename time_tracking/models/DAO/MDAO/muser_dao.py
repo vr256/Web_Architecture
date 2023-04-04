@@ -13,32 +13,44 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 @singleton
 class MUser_DAO(IUser_DAO):
     def select_all(self, connection) -> List[User]:
-        cursor = connection.cnx.cursor()
-        query = 'SELECT * FROM user;'
-        cursor.execute(query)
-        users = [User(*i) for i in cursor.fetchall()]
-        cursor.close()
-        return users
+        try:
+            cursor = connection.cnx.cursor()
+            query = 'SELECT * FROM user;'
+            cursor.execute(query)
+            users = [User(*i) for i in cursor.fetchall()]
+            return users
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
 
     def find_by_login(self, connection, login : str) -> Union[User, bool]:
-        cursor = connection.cnx.cursor()
-        query = f'SELECT * FROM user WHERE login="{login}";'
-        cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        if result:
-            return User(*result[0])
-        return False
+        try:
+            cursor = connection.cnx.cursor()
+            query = f'SELECT * FROM user WHERE login="{login}";'
+            cursor.execute(query)
+            result = cursor.fetchall()
+            if result:
+                return User(*result[0])
+            return False
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
     
     def find_by_email(self, connection, email : str) -> Union[User, bool]:
-        cursor = connection.cnx.cursor()
-        query = f'SELECT * FROM user WHERE email="{email}";'
-        cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        if result:
-            return User(*result[0])
-        return False
+        try:
+            cursor = connection.cnx.cursor()
+            query = f'SELECT * FROM user WHERE email="{email}";'
+            cursor.execute(query)
+            result = cursor.fetchall()
+            if result:
+                return User(*result[0])
+            return False
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
     
     def insert(self, connection, users : List[User]):
         try:
@@ -71,10 +83,15 @@ class MUser_DAO(IUser_DAO):
             cursor.close()
 
     def delete(self, connection, users : List[User]):
-        cursor = connection.cnx.cursor()
-        for user in users:
-            query = 'DELETE FROM user\n' + \
-                    f'WHERE login="{user.login}";'
-            cursor.execute(query)
-        connection.cnx.commit()
-        cursor.close()
+        try:
+            cursor = connection.cnx.cursor()
+            for user in users:
+                query = 'DELETE FROM user\n' + \
+                        f'WHERE login="{user.login}";'
+                cursor.execute(query)
+            connection.cnx.commit()
+        except mysql.connector.Error:
+            logging.exception('')
+            connection.cnx.rollback()
+        finally:
+            cursor.close()

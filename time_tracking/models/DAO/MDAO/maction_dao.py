@@ -13,22 +13,31 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 @singleton
 class MAction_DAO(IAction_DAO):
     def select_all(self, connection) -> List[Action]:
-        cursor = connection.cnx.cursor()
-        query = 'SELECT * FROM action;'
-        cursor.execute(query)
-        actions = [Action(*i) for i in cursor.fetchall()]
-        cursor.close()
-        return actions
+        try:
+            cursor = connection.cnx.cursor()
+            query = 'SELECT * FROM action;'
+            cursor.execute(query)
+            actions = [Action(*i) for i in cursor.fetchall()]
+            return actions
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
+        
 
     def find_by_name(self, connection, name : str) -> Union[Action, bool]:
-        cursor = connection.cnx.cursor()
-        query = f'SELECT * FROM action WHERE name_action="{name}";'
-        cursor.execute(query)
-        result = cursor.fetchall()
-        cursor.close()
-        if result:
-            return Action(*result[0])
-        return False
+        try:
+            cursor = connection.cnx.cursor()
+            query = f'SELECT * FROM action WHERE name_action="{name}";'
+            cursor.execute(query)
+            result = cursor.fetchall()
+            if result:
+                return Action(*result[0])
+            return False
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
 
     def insert(self, connection, actions : List[Action]):
         try:
@@ -60,10 +69,15 @@ class MAction_DAO(IAction_DAO):
             cursor.close()
 
     def delete(self, connection, actions : List[Action]):
-        cursor = connection.cnx.cursor()
-        for action in actions:
-            query = 'DELETE FROM action\n' + \
-                    f'WHERE name_action="{action.name_action}";'
-            cursor.execute(query)
-        connection.cnx.commit()
-        cursor.close()
+        try:
+            cursor = connection.cnx.cursor()
+            for action in actions:
+                query = 'DELETE FROM action\n' + \
+                        f'WHERE name_action="{action.name_action}";'
+                cursor.execute(query)
+            connection.cnx.commit()
+        except mysql.connector.Error:
+            logging.exception('')
+            connection.cnx.rollback()
+        finally:
+            cursor.close()
