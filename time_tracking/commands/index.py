@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, session
-from ..services import AuthService
+from ..services import AuthService, AdminService
 
 def general_index():
     if 'login' in session:
@@ -10,7 +10,7 @@ def general_index():
 
 
 def show_users():
-    users = AuthService().get_users()
+    users = AdminService().get_users()
     return render_template('index.html', login=session.get('login'), 
                             users=[user.login for user in users])
 
@@ -18,4 +18,3 @@ def show_users():
 def logout():
   session.pop('login', None)
   return redirect(url_for('general_index'))
-

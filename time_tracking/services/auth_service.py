@@ -21,17 +21,6 @@ class AuthService:
         finally:
             del cnx
 
-    def get_users(self):
-        try:
-            cnx = Connection_Factory.get_cnx(app.config['dbms'], app.config['db'])
-            dao_user = DAO_Factory.get_dao(app.config['dbms']).get_dao_implementation('user')
-            users = dao_user.select_all(cnx)
-            return users
-        except Exception:
-            logging.exception('')
-        finally:
-            del cnx
-
     def get_by_creds(self, credentials : str):
         try:
             cnx = Connection_Factory.get_cnx(app.config['dbms'], app.config['db'])

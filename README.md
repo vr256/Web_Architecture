@@ -9,6 +9,8 @@
 Пользователь может отправить запрос на добавление/удаление Активности.       
 
 ## Tech stack
+| Tool      | Solution                           |
+|-----------|------------------------------------|
 | DBMS      | MySQL                              |
 | Server    | Waitress (pure Python WSGI server) |
 | Packaging | setuptools                         |
