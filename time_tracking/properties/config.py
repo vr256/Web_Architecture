@@ -5,6 +5,7 @@ DBMS = 'MySQL'
 # Logging
 LOG_FORMAT = '%(asctime)s - %(levelname)s - %(name)s - %(message)s'
 LOG_PATHES = {
+    'time_tracking.services.admin_service' : 'time_tracking/logs/admin.txt',
     'time_tracking.services.auth_service' : 'time_tracking/logs/auth.txt',
     'time_tracking.tools.connector' : 'time_tracking/logs/general.txt',
     'time_tracking.models.DAO.MDAO.maction_dao' : 'time_tracking/logs/DB.txt',

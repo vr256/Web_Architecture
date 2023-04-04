@@ -16,7 +16,7 @@
 | Packaging | setuptools                         |
 | Patterns  | DAO, Command, MVC (MTV in Python)  |    
 
-## How to run
+## How to install & run
 1. git clone https://github.com/konovaliuk/time_tracking.git 
 2. cd time_tracking  
 3. pip install venv  
