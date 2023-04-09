@@ -11,11 +11,9 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 class AdminService:
     def get_users(self):
         try:
-            cnx = Connection_Factory.get_cnx(app.config['dbms'], app.config['db'])
-            dao_user = DAO_Factory.get_dao(app.config['dbms']).get_dao_implementation('user')
-            users = dao_user.select_all(cnx)
-            return users
+            with Connection_Factory.get_cnx(app.config['dbms'], app.config['db']) as cnx:
+                dao_user = DAO_Factory.get_dao(app.config['dbms']).get_dao_implementation('user')
+                users = dao_user.select_all(cnx)
+                return users
         except Exception:
             logging.exception('')
-        finally:
-            del cnx

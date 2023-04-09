@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 class MActivity_DAO(IActivity_DAO):
     def select_all(self, connection) -> List[Activity]:
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             query = 'SELECT * FROM activity;'
             cursor.execute(query)
             roles = [Activity(*i) for i in cursor.fetchall()]
@@ -26,7 +26,7 @@ class MActivity_DAO(IActivity_DAO):
 
     def find_by_name(self, connection, name : str) -> Union[Activity, bool]:
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             query = f'SELECT * FROM activity WHERE name_activity="{name}";'
             cursor.execute(query)
             result = cursor.fetchall()
@@ -40,43 +40,43 @@ class MActivity_DAO(IActivity_DAO):
 
     def insert(self, connection, activities : List[Activity]):
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             for activity in activities:
                 query = 'INSERT INTO activity (name_activity, category_id)\n' + \
                         f'VALUES ("{activity.name_activity}", {activity.category_id});'
                 cursor.execute(query)
-            connection.cnx.commit()
+            connection.commit()
         except mysql.connector.Error:
             logging.exception('')
-            connection.cnx.rollback()
+            connection.rollback()
         finally:
             cursor.close()
 
     def update(self, connection, activities : List[Activity]):
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             for activity in activities:
                 query = 'UPDATE activity\n' + \
                         f'SET name_activity="{activity.name_activity}", category_id={activity.category_id}\n' + \
                         f'WHERE activity_id={activity.activity_id};'
                 cursor.execute(query)
-            connection.cnx.commit()
+            connection.commit()
         except mysql.connector.Error:
             logging.exception('')
-            connection.cnx.rollback()
+            connection.rollback()
         finally:
             cursor.close()
 
     def delete(self, connection, activities : List[Activity]):
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             for activity in activities:
                 query = 'DELETE FROM activity\n' + \
                         f'WHERE name_activity="{activity.name_activity}";'
                 cursor.execute(query)
-            connection.cnx.commit()
+            connection.commit()
         except mysql.connector.Error:
             logging.exception('')
-            connection.cnx.rollback()
+            connection.rollback()
         finally:
             cursor.close()

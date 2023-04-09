@@ -26,13 +26,20 @@ class IConnection(metaclass=ABCMeta):
     @abstractmethod
     def __init__(self, db : IDatabase):
         '''
-        Should take connectionfrom the pool
+        Should instantiate db
         '''
 
     @abstractmethod
-    def __del__(self):
+    def __enter__(self):
         '''
-        Should put connectionback to the pool
+        Should take connection from the pool
+        '''
+
+    @abstractmethod
+    def __exit__(self, exc_type, exc_value, traceback):
+        '''
+        Should put connection back to the pool
+        and handle all possible exceptions
         '''
 
 
@@ -53,12 +60,16 @@ class MySQL_DB(IDatabase):
 class MySQL_CNX(IConnection):
     def __init__(self, db : MySQL_DB):
         self.db = db
-        try:
-            self.cnx = self.db.cnx_pool.get_connection()
-        except AttributeError:
-            logging.exception('Most likely forgot to connect to DB')
-        except Error:
-            logging.exception()
 
-    def __del__(self):
+    def __enter__(self):
+        self.cnx = self.db.cnx_pool.get_connection()
+        return self.cnx
+
+    def __exit__(self, exc_type, exc_value, traceback):
         self.cnx.close()
+        del self.cnx
+        if isinstance(exc_value, AttributeError):
+            logging.exception('Most likely forgot to connect to DB')
+        else:
+            logging.exception('')
+        return True

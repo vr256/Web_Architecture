@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG, filename=LOG_PATHES[__name__],
 class MTimeTracking_DAO(ITimeTracking_DAO):
     def select_all(self, connection) -> List[TimeTracking]:
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             query = 'SELECT * FROM time_tracking;'
             cursor.execute(query)
             time_trackings = [TimeTracking(*i) for i in cursor.fetchall()]
@@ -26,7 +26,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
 
     def find_by_user_id(self, connection, user_id : int) -> List[TimeTracking]:
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             query = f'SELECT * FROM time_tracking WHERE user_id={user_id};'
             cursor.execute(query)
             time_trackings = [TimeTracking(*i) for i in cursor.fetchall()]
@@ -38,7 +38,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
     
     def find_by_activity_id(self, connection, activity_id : int) -> List[TimeTracking]:
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             query = f'SELECT * FROM time_tracking WHERE activity_id={activity_id};'
             cursor.execute(query)
             time_trackings = [TimeTracking(*i) for i in cursor.fetchall()]
@@ -50,35 +50,35 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
     
     def find_by_action_id(self, connection, action_id : int) -> List[TimeTracking]:
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             query = f'SELECT * FROM time_tracking WHERE action_id={action_id};'
             cursor.execute(query)
             time_trackings = [TimeTracking(*i) for i in cursor.fetchall()]
             return time_trackings
         except mysql.connector.Error:
             logging.exception('')
-            connection.cnx.rollback()
+            connection.rollback()
         finally:
             cursor.close()
 
     def insert(self, connection, time_trackings : List[TimeTracking]):
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             for time_track in time_trackings:
                 query = 'INSERT INTO time_tracking (activity_id, user_id, action_id, time_spent)\n' + \
                         f'VALUES ({time_track.activity_id}, {time_track.user_id}, ' + \
                         f'{time_track.action_id}, "{time_track.time_spent}");'
                 cursor.execute(query)
-            connection.cnx.commit()
+            connection.commit()
         except mysql.connector.Error:
             logging.exception('')
-            connection.cnx.rollback()
+            connection.rollback()
         finally:
             cursor.close()
 
     def update(self, connection, time_trackings : List[TimeTracking]):
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             for time_track in time_trackings:
                 query = 'UPDATE time_tracking\n' + \
                         f'SET activity_id={time_track.activity_id}, user_id={time_track.user_id}, ' + \
@@ -86,25 +86,25 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
                         f'WHERE activity_id={time_track.activity_id} AND user_id={time_track.user_id} ' + \
                         f'AND action_id={time_track.action_id};'
                 cursor.execute(query)
-            connection.cnx.commit()
+            connection.commit()
         except mysql.connector.Error:
             logging.exception('')
-            connection.cnx.rollback()
+            connection.rollback()
         finally:
             cursor.close()
 
     def delete(self, connection, time_trackings : List[TimeTracking]):
         try:
-            cursor = connection.cnx.cursor()
+            cursor = connection.cursor()
             for time_track in time_trackings:
                 query = 'DELETE FROM time_tracking\n' + \
                         f'WHERE activity_id={time_track.activity_id} ' + \
                         f'AND user_id={time_track.user_id} ' + \
                         f'AND action_id={time_track.action_id};'
                 cursor.execute(query)
-            connection.cnx.commit()
+            connection.commit()
         except mysql.connector.Error:
             logging.exception('')
-            connection.cnx.rollback()
+            connection.rollback()
         finally:
             cursor.close()
