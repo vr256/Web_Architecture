@@ -8,7 +8,7 @@ def general_login():
             if credentials is None:
                 return render_template('login.html')
             if credentials =='':
-                return render_template('login.html', error='Empty login field')
+                return render_template('login.html', error='Empty field')
             
             user = AuthService().get_by_creds(credentials)
             if not user:

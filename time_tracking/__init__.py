@@ -12,5 +12,4 @@ app.config['SECRET_KEY'] = os.urandom(20).hex()
 app.config.update(SESSION_COOKIE_SAMESITE="None", SESSION_COOKIE_SECURE=True)
 app.app_context().push()
 
-# needed for routing
 from .controllers import controller_helper

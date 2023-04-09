@@ -1,39 +1,61 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title>Index page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../static/style.css" rel="stylesheet" media="screen">
+    <title>Time Tracking App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/index.css">
   </head>
   <body>
-    <div class="container">
-      <h1>Index page</h1>
-      <br>
-      {% if login %}
-        <p class="error">Welcome: {{ login }} </p>
-        <form action="/logout" method="post">
-            <input type="submit" value="Log out">
-        </form>
-      {% else %}
-        <form action="/login" method="post">
-          <input type="submit" value="Sing in">
-      </form>
-      {% endif %} 
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <a class="navbar-brand" href="/">Time Tracking App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            {% if login %}
+            <li class="nav-item">
+              <a class="nav-link navbar-link" href="/home/">Home</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link navbar-link" href="/login/">Sign In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link navbar-link" href="/signup/">Sign Up</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
 
-      {% if role == 'admin' %}
-        <form action="/" method="post">
-          <input type="submit" value="Show all users">
-        </form>
-      {% endif %}
-        
-
-      {% if users %}
-      <ol>
-        {% for user in users %}
-            <li>{{ user}}</li>
-        {% endfor %}
-      </ol>
-      {% endif %} 
-
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">Welcome to the Time Tracking App</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Track Your Time</h2>
+          <p>With our app, you can easily track your time and never miss a deadline again.</p>
+          <a class="btn btn-primary" href="#">Learn More</a>
+        </div>
+        <div class="col-md-6">
+          <h2>View Advanced Statistics</h2>
+          <p>Keep all your projects organized and stay on top of your work with our project management tools.</p>
+          <a class="btn btn-primary" href="#">Learn More</a>
+        </div>
+      </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDUCtfs/kW8Bi3UIONt0p"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
   </body>
 </html>
