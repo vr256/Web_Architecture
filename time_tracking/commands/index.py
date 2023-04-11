@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, session
 from ..services import AuthService, AdminService
 
-def general_index():
+def index():
     if 'login' in session:
         role = AuthService().get_role(session['role_id']) 
         return render_template('index.html', login=session.get('login'), role=role)
@@ -15,6 +15,6 @@ def show_users():
                             users=[user.login for user in users])
 
 
-def logout():
+def sign_out():
   session.pop('login', None)
-  return redirect(url_for('general_index'))
+  return redirect(url_for('index'))

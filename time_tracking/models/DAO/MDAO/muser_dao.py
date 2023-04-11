@@ -51,6 +51,20 @@ class MUser_DAO(IUser_DAO):
             logging.exception('')
         finally:
             cursor.close()
+
+    def find_last(self, connection) -> Union[User, bool]:
+        try:
+            cursor = connection.cursor()
+            query = f'SELECT * FROM user ORDER BY user_id DESC LIMIT 1'
+            cursor.execute(query)
+            result = cursor.fetchall()
+            if result:
+                return User(*result[0])
+            return False
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
     
     def insert(self, connection, users : List[User]):
         try:

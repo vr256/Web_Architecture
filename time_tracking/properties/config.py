@@ -6,7 +6,6 @@ DBMS = 'MySQL'
 LOG_FORMAT = '%(asctime)s - %(levelname)s - %(name)s - %(message)s'
 LOG_PATHES = {
     'time_tracking.services.admin_service' : 'time_tracking/logs/admin.txt',
-    'time_tracking.services.signup_service' : 'time_tracking/logs/auth.txt',
     'time_tracking.services.auth_service' : 'time_tracking/logs/auth.txt',
     'time_tracking.tools.connector' : 'time_tracking/logs/general.txt',
     'time_tracking.models.DAO.MDAO.maction_dao' : 'time_tracking/logs/DB.txt',
@@ -32,8 +31,14 @@ ROUTES = {
     '': '',
 }
 
-# Errors
-ERRORS = {
-    'AUTH_CRED': 'No user with such login or email found',
-    'AUTH_PASS': 'Wrong password',
+ROLES = {
+    'user': 1, 
+    'admin': 2,
+}
+
+
+VALIDATORS = {
+    'login': r'^[A-Za-z_]{1}\w{,15}$', 
+    'password': r'^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,16}$',
+    'email': r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
 }

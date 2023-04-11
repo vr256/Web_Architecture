@@ -24,6 +24,14 @@ class IUser_DAO(metaclass=ABCMeta):
         '''
 
     @abstractmethod
+    def find_last(self, connection) -> Union[User, bool]:
+        '''
+        Should return the last user
+        or False if there's no users 
+        '''
+
+
+    @abstractmethod
     def insert(self, connection, users : List[User]):
         '''
         Should insert given list of users

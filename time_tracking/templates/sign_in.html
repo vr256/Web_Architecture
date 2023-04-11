@@ -1,11 +1,11 @@
 <html>
   <head>
-    <title>Server error</title>
+    <title>Sign in</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
     crossorigin="anonymous">
-    <link href="../static/error.css" rel="stylesheet" media="screen">
+    <link href="../static/sign_in.css" rel="stylesheet" media="screen">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
@@ -16,25 +16,25 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-          {% if login %}
-          <li class="nav-item">
-            <a class="nav-link navbar-link" href="/home/">Home</a>
-          </li>
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link navbar-link" href="/signin/">Sign In</a>
-          </li>
           <li class="nav-item">
             <a class="nav-link navbar-link" href="/signup/">Sign Up</a>
           </li>
-          {% endif %}
         </ul>
       </div>
     </nav>
-
     <div class="container">
-      <h1>500</h1>
-      <h3>We'll be back</h3>
+      <h1>Sign in</h1>
+      <br>
+      <form action="" method="post">
+        <input type="text" placeholder="Login or email" name="creds" value="{{
+          request.form.creds }}">
+         <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}">
+        <input class="btn btn-default" type="submit" value="Sign in">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %} 
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
