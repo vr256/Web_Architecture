@@ -1,5 +1,5 @@
 # Time tracking system
-- **Author**: Volodymyr Rizun     
+- **By**: Volodymyr Rizun     
 - **Group**: KI-02    
 
 ## About

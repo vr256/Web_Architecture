@@ -28,6 +28,25 @@
               <a class="nav-link navbar-link" href="/signup/">Sign Up</a>
             </li>
             {% endif %}
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle dropdown-toggle-no-caret" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                {% if current_language == 'en' %}
+                <img src="../static/image/lang/gb.svg" alt="eng" class="nav-flag">
+                {% elif current_language == 'uk' %}
+                <img src="../static/image/lang/ua.svg" alt="ukr" class="nav-flag">
+                {% endif %}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item {% if current_language == 'en' %}active{% endif %}" href="#" data-lang="en">
+                  <img src="../static/image/lang/gb.svg" alt="eng" class="nav-flag">
+                </a>
+                <a class="dropdown-item {% if current_language == 'uk' %}active{% endif %}" href="#" data-lang="uk">
+                  <img src="../static/image/lang/ua.svg" alt="ukr" class="nav-flag">
+                </a>
+              </div>
+            </li>
           </ul>
         </div>
       </nav>
@@ -57,5 +76,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"></script>
+
   </body>
 </html>
