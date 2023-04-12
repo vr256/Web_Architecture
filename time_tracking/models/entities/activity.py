@@ -1,8 +1,8 @@
 class Activity:
-    def __init__(self, activity_id, category_id: int, name_activity: str):
+    def __init__(self, activity_id: int, name_activity: str, category_id: int):
         self._activity_id = activity_id
-        self._category_id = category_id
         self._name_activity = name_activity
+        self._category_id = category_id
 
     def __str__(self) -> str:
         return f'{self._activity_id, self._category_id, self._name_activity}'

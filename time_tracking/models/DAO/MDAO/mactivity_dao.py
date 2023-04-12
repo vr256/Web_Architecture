@@ -24,6 +24,20 @@ class MActivity_DAO(IActivity_DAO):
         finally:
             cursor.close()
 
+    def find_by_id(self, connection, id : int) -> Union[Activity, bool]:
+        try:
+            cursor = connection.cursor()
+            query = f'SELECT * FROM activity WHERE activity_id="{id}";'
+            cursor.execute(query)
+            result = cursor.fetchall()
+            if result:
+                return Activity(*result[0])
+            return False
+        except mysql.connector.Error:
+            logging.exception('')
+        finally:
+            cursor.close()
+
     def find_by_name(self, connection, name : str) -> Union[Activity, bool]:
         try:
             cursor = connection.cursor()
