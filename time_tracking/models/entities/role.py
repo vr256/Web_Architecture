@@ -1,29 +1,22 @@
-class Role:
-    def __init__(self, role_id : int, name_role : str):
-        self._role_id = role_id
-        self._name_role = name_role
+from typing import List
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from .base import Base
 
-    def __str__(self) -> str:
-        return f'{self._role_id, self._name_role}'
+class Role(Base):
+
+    __tablename__ = 'role'
+
+    role_id: Mapped[int] = mapped_column(primary_key=True)
+    name_role: Mapped[str] = mapped_column(String(25))
+
+    users: Mapped[List['User']] = relationship(back_populates='role', cascade='all')
+
+    def __repr__(self) -> str:
+         return f'Role(role_id={self.role_id!r}, name_role={self.name_role!r})'
     
     def __eq__(self, other) -> bool:
-        return isinstance(other, Role) and self._name_role == other._name_role
+        return isinstance(other, Role) and self.name_role == other.name_role
     
     def __hash__(self) -> int:
-        return hash(self._name_role)
-
-    @property
-    def role_id(self) -> int:
-        return self._role_id
-    
-    @role_id.setter
-    def role_id(self, val : int):
-        self._role_id = val
-
-    @property
-    def name_role(self) -> str:
-        return self._name_role
-    
-    @name_role.setter
-    def name_role(self, val : str):
-        self._name_role = val
+        return hash(self.name_role)

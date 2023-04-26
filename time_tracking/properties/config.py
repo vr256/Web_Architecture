@@ -9,12 +9,12 @@ LOG_PATHES = {
     'time_tracking.services.info_service' : 'time_tracking/logs/home_page.txt',
     'time_tracking.services.auth_service' : 'time_tracking/logs/auth.txt',
     'time_tracking.tools.connector' : 'time_tracking/logs/general.txt',
-    'time_tracking.models.DAO.MDAO.maction_dao' : 'time_tracking/logs/DB.txt',
-    'time_tracking.models.DAO.MDAO.mactivity_dao' : 'time_tracking/logs/DB.txt',
-    'time_tracking.models.DAO.MDAO.mcategory_dao' : 'time_tracking/logs/DB.txt',
-    'time_tracking.models.DAO.MDAO.mrole_dao' : 'time_tracking/logs/DB.txt',
-    'time_tracking.models.DAO.MDAO.mtime_tracking_dao' : 'time_tracking/logs/DB.txt',
-    'time_tracking.models.DAO.MDAO.muser_dao' : 'time_tracking/logs/DB.txt',
+    'time_tracking.models.DAO.MySQL_DAO.maction_dao' : 'time_tracking/logs/DB.txt',
+    'time_tracking.models.DAO.MySQL_DAO.mactivity_dao' : 'time_tracking/logs/DB.txt',
+    'time_tracking.models.DAO.MySQL_DAO.mcategory_dao' : 'time_tracking/logs/DB.txt',
+    'time_tracking.models.DAO.MySQL_DAO.mrole_dao' : 'time_tracking/logs/DB.txt',
+    'time_tracking.models.DAO.MySQL_DAO.mtime_tracking_dao' : 'time_tracking/logs/DB.txt',
+    'time_tracking.models.DAO.MySQL_DAO.muser_dao' : 'time_tracking/logs/DB.txt',
 }
 
 # DB config
@@ -24,6 +24,7 @@ DB_CONFIG = {
     'user': 'root',
     'password': '123456',
     'host': '127.0.0.1',
+    'port': '3306',
     'database': 'time_tracking_db'
 }
 

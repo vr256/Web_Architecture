@@ -1,29 +1,21 @@
-class Action:
-    def __init__(self, action_id : int, name_action : str):
-        self._action_id = action_id
-        self._name_action = name_action
+from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from .base import Base
 
-    def __str__(self) -> str:
-        return f'{self._action_id, self._name_action}'
+class Action(Base):
+
+    __tablename__ = 'action'
+
+    action_id: Mapped[int] = mapped_column(primary_key=True)
+    name_action: Mapped[str] = mapped_column(String(55))
+
+    time_trackings: Mapped['TimeTracking'] = relationship(back_populates='action', cascade='all')
+
+    def __repr__(self) -> str:
+         return f'Action(action_id={self.action_id!r}, name_action={self.name_action!r})'
     
     def __eq__(self, other) -> bool:
-        return isinstance(other, Action) and self._name_action == other._name_action
+        return isinstance(other, Action) and self.name_action == other.name_action
     
     def __hash__(self) -> int:
-        return hash(self._name_action)
-    
-    @property
-    def action_id(self) -> int:
-        return self._action_id
-    
-    @action_id.setter
-    def action_id(self, val : int):
-        self._action_id = val
-
-    @property
-    def name_action(self) -> str:
-        return self._name_action
-    
-    @name_action.setter
-    def name_action(self, val : str):
-        self._name_action = val
+        return hash(self.name_action)

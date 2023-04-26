@@ -1,7 +1,9 @@
 import logging
 
 from abc import ABCMeta, abstractmethod
-from mysql.connector import pooling, Error
+from sqlalchemy import create_engine
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import Session
 from ..tools import singleton
 from ..properties import LOG_FORMAT, LOG_PATHES, POOL_NAME, POOL_SIZE, DB_CONFIG
 
@@ -47,14 +49,18 @@ class IConnection(metaclass=ABCMeta):
 class MySQL_DB(IDatabase):
     def connect(self):
         try:
-            self.cnx_pool = pooling.MySQLConnectionPool(pool_name = POOL_NAME,
-                                                        pool_size = POOL_SIZE,
-                                                        **DB_CONFIG)
-        except Error:
+            self.cnx_pool = create_engine("mysql+mysqlconnector://"     \
+                                          f"{DB_CONFIG['user']}:"       \
+                                          f"{DB_CONFIG['password']}@"   \
+                                          f"{DB_CONFIG['host']}:"       \
+                                          f"{DB_CONFIG['port']}/"       \
+                                          f"{DB_CONFIG['database']}",
+                                          pool_size=POOL_SIZE)
+        except SQLAlchemyError:
             logging.exception()
 
     def close(self):
-        self.cnx_pool._remove_connections()
+        del self.cnx_pool
 
 
 class MySQL_CNX(IConnection):
@@ -62,7 +68,7 @@ class MySQL_CNX(IConnection):
         self.db = db
 
     def __enter__(self):
-        self.cnx = self.db.cnx_pool.get_connection()
+        self.cnx = Session(self.db.cnx_pool)
         return self.cnx
 
     def __exit__(self, exc_type, exc_value, traceback):

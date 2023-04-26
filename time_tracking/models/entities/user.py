@@ -1,56 +1,25 @@
-class User:
-    def __init__(self, user_id : int, login, password, email : str, role_id : int):
-        self._user_id = user_id
-        self._login = login
-        self._password = password
-        self._email = email
-        self._role_id = role_id
+from sqlalchemy import ForeignKey, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from .base import Base
 
-    def __str__(self) -> str:
-        return f'{self._user_id, self._login, self._password, self._email, self._role_id}'
+class User(Base):
+
+    __tablename__ = 'user'
+
+    user_id: Mapped[int] = mapped_column(primary_key=True)
+    login: Mapped[str] = mapped_column(String(50))
+    password: Mapped[str]
+    email: Mapped[str]
+    role_id: Mapped[int] = mapped_column(ForeignKey('role.role_id'))
+
+    role: Mapped['Role'] = relationship(back_populates='users', cascade='all')
+    time_trackings: Mapped['TimeTracking'] = relationship(back_populates='user', cascade='all')
+
+    def __repr__(self) -> str:
+         return f'User(user_id={self.user_id!r}, login={self.login!r}, password={self.password!r}), email={self.email!r}, role_id={self.role_id!r})'
 
     def __eq__(self, other) -> bool:
-        return isinstance(other, User) and self._login == other._login
+        return isinstance(other, User) and self.login == other.login
     
     def __hash__(self) -> int:
-        return hash(self._login)
-
-    @property
-    def user_id(self) -> int:
-        return self._user_id
-    
-    @user_id.setter
-    def user_id(self, val : int):
-        self.user_id = val
-
-    @property
-    def login(self) -> str:
-        return self._login
-    
-    @login.setter
-    def login(self, val : str):
-        self._login = val
-
-    @property
-    def password(self) -> str:
-        return self._password
-    
-    @password.setter
-    def password(self, val : str):
-        self._password = val
-
-    @property
-    def email(self) -> str:
-        return self._email
-    
-    @email.setter
-    def email(self, val : str):
-        self._email = val
-
-    @property
-    def role_id(self) -> int:
-        return self._role_id
-    
-    @role_id.setter
-    def role_id(self, val : int):
-        self._role_id = val
+        return hash(self.login)
