@@ -16,7 +16,7 @@ class MRole_DAO(IRole_DAO):
     def select_all(self, connection) -> List[Role]:
         try:
             select_stmt = select(Role)
-            roles = connection.execute(select_stmt).fetchall()
+            roles = connection.scalars(select_stmt)
             return roles if roles else False
         except SQLAlchemyError:
             logging.exception('')
@@ -24,7 +24,7 @@ class MRole_DAO(IRole_DAO):
     def find_by_id(self, connection, id : int) -> Union[Role, bool]:
         try:
             select_stmt = select(Role).where(Role.role_id == id)
-            role = connection.execute(select_stmt).fetchone()
+            role = connection.scalars(select_stmt).one()
             return role if role else False
         except SQLAlchemyError:
             logging.exception('')
@@ -32,7 +32,7 @@ class MRole_DAO(IRole_DAO):
     def find_by_name(self, connection, name : str) -> Union[Role, bool]:
         try:
             select_stmt = select(Role).where(Role.name_role == name)
-            role = connection.execute(select_stmt).fetchone()
+            role = connection.scalars(select_stmt).one()
             return role if role else False
         except SQLAlchemyError:
             logging.exception('')

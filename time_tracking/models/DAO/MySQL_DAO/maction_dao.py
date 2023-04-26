@@ -16,7 +16,7 @@ class MAction_DAO(IAction_DAO):
     def select_all(self, connection) -> List[Action]:
         try:
             select_stmt = select(Action)
-            actions = connection.execute(select_stmt).fetchall()
+            actions = connection.scalars(select_stmt)
             return actions if actions else False
         except SQLAlchemyError:
             logging.exception('')
@@ -25,7 +25,7 @@ class MAction_DAO(IAction_DAO):
     def find_by_name(self, connection, name : str) -> Union[Action, bool]:
         try:
             select_stmt = select(Action).where(Action.name_action == name)
-            action = connection.execute(select_stmt).fetchone()
+            action = connection.scalars(select_stmt).one()
             return action if action else False
         except SQLAlchemyError:
             logging.exception('')

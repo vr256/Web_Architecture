@@ -16,7 +16,7 @@ class MCategory_DAO(ICategory_DAO):
     def select_all(self, connection) -> List[Category]:
         try:
             select_stmt = select(Category)
-            categories = connection.execute(select_stmt).fetchall()
+            categories = connection.scalars(select_stmt)
             return categories if categories else False
         except SQLAlchemyError:
             logging.exception('')
@@ -24,7 +24,7 @@ class MCategory_DAO(ICategory_DAO):
     def find_by_name(self, connection, name : str) -> Union[Category, bool]:
         try:
             select_stmt = select(Category).where(Category.name_category == name)
-            category = connection.execute(select_stmt).fetchone()
+            category = connection.scalars(select_stmt).one()
             return category if category else False
         except SQLAlchemyError:
             logging.exception('')

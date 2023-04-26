@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 from sqlalchemy import ForeignKey, Time
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -10,14 +11,14 @@ class TimeTracking(Base):
     activity_id: Mapped[int] = mapped_column(ForeignKey('activity.activity_id'), primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey('user.user_id'), primary_key=True)
     action_id: Mapped[int] = mapped_column(ForeignKey('action.action_id'), primary_key=True)
-    time_spent: Mapped[Optional[str]]
+    time_spent: Mapped[Optional[datetime]]
 
     activity: Mapped['Activity'] = relationship(back_populates='time_trackings', cascade='all')
     user: Mapped['User'] = relationship(back_populates='time_trackings', cascade='all')
     action: Mapped['Action'] = relationship(back_populates='time_trackings', cascade='all')
     
     def __repr__(self) -> str:
-         return f'TimeTracking(activity_id={self.activity_id!r}, user_id={self.user_id!r}, action_id={self.action_id!r}, time_spent={self.time_spent!r})'
+         return f'TimeTracking(activity_id={self.activity_id!r}, user_id={self.user_id!r}, action_id={self.action_id!r}), time_spent={self.time_spent!r})'
 
     def __eq__(self, other) -> bool:
         return isinstance(other, TimeTracking) and       \

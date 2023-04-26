@@ -16,7 +16,7 @@ class MUser_DAO(IUser_DAO):
     def select_all(self, connection) -> List[User]:
         try:
             select_stmt = select(User)
-            users = connection.execute(select_stmt).fetchall()
+            users = connection.scalars(select_stmt)
             return users if users else False
         except SQLAlchemyError:
             logging.exception('')
@@ -24,7 +24,7 @@ class MUser_DAO(IUser_DAO):
     def find_by_login(self, connection, login : str) -> Union[User, bool]:
         try:
             select_stmt = select(User).where(User.login == login)
-            user = connection.execute(select_stmt).fetchone()
+            user = connection.scalars(select_stmt).one()
             return user if user else False
         except SQLAlchemyError:
             logging.exception('')
@@ -32,7 +32,7 @@ class MUser_DAO(IUser_DAO):
     def find_by_email(self, connection, email : str) -> Union[User, bool]:
         try:
             select_stmt = select(User).where(User.email == email)
-            user = connection.execute(select_stmt).fetchone()
+            user = connection.scalars(select_stmt).one()
             return user if user else False
         except SQLAlchemyError:
             logging.exception('')
@@ -40,7 +40,7 @@ class MUser_DAO(IUser_DAO):
     def find_last(self, connection) -> Union[User, bool]:
         try:
             select_stmt = select(User).order_by(desc(User.user_id)).limit(1)
-            user = connection.execute(select_stmt).fetchone()
+            user = connection.scalars(select_stmt).one()
             return user if user else False
         except SQLAlchemyError:
             logging.exception('')

@@ -8,7 +8,7 @@ def run():
     db.connect()
 
     with Connection_Factory.get_cnx(DBMS, db) as cnx:
-        #USER TABLE
+        # user table
 
         dao_user = DAO_Factory.get_dao(DBMS).get_dao_implementation('user')
         users = dao_user.select_all(cnx)
@@ -30,15 +30,16 @@ def run():
         users = dao_user.select_all(cnx)
         print('Select all', *users, '\n', sep='\n')
 
-        # TIME_TRACKING TABLE
+        # time_tracking table
         dao_activity = DAO_Factory.get_dao(DBMS).get_dao_implementation('activity')
         dao_time_track = DAO_Factory.get_dao(DBMS).get_dao_implementation('time_tracking')
 
         activity = dao_activity.find_by_name(cnx, 'chess')
+        print(activity)
         time_trackings = dao_time_track.find_by_activity_id(cnx, activity.activity_id)
-        users_id = [i.user_id for i in time_trackings]
-        time_spent = [f'{i.time_spent.seconds // 3600}:{(i.time_spent.seconds // 60) % 60}:{i.time_spent.seconds % 60}' for i in time_trackings]
-        print('Time spent by all users on chess:', *zip(users_id, time_spent), sep='\n')
+
+        time_by_users = [(t.user.login, str(t.time_spent)) for t in time_trackings]
+        print('Time spent by all users on chess:', *time_by_users, sep='\n')
 
     db.close()
 

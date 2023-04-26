@@ -16,7 +16,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
     def select_all(self, connection) -> List[TimeTracking]:
         try:
             select_stmt = select(TimeTracking)
-            time_trackings = connection.execute(select_stmt).fetchall()
+            time_trackings = connection.scalars(select_stmt)
             return time_trackings if time_trackings else False
         except SQLAlchemyError:
             logging.exception('')
@@ -24,7 +24,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
     def find_by_user_id(self, connection, user_id : int) -> List[TimeTracking]:
         try:
             select_stmt = select(TimeTracking).where(TimeTracking.user_id == user_id)
-            time_tracking = connection.execute(select_stmt).fetchall()
+            time_tracking = connection.scalars(select_stmt)
             return time_tracking if time_tracking else False
         except SQLAlchemyError:
             logging.exception('')
@@ -32,7 +32,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
     def find_by_activity_id(self, connection, activity_id : int) -> List[TimeTracking]:
         try:
             select_stmt = select(TimeTracking).where(TimeTracking.activity_id == activity_id)
-            time_tracking = connection.execute(select_stmt).fetchall()
+            time_tracking = connection.scalars(select_stmt)
             return time_tracking if time_tracking else False
         except SQLAlchemyError:
             logging.exception('')
@@ -40,7 +40,7 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
     def find_by_action_id(self, connection, action_id : int) -> List[TimeTracking]:
         try:
             select_stmt = select(TimeTracking).where(TimeTracking.action_id == action_id)
-            time_tracking = connection.execute(select_stmt).fetchall()
+            time_tracking = connection.scalars(select_stmt)
             return time_tracking if time_tracking else False
         except SQLAlchemyError:
             logging.exception('')

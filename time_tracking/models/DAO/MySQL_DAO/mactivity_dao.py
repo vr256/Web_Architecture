@@ -16,7 +16,7 @@ class MActivity_DAO(IActivity_DAO):
     def select_all(self, connection) -> List[Activity]:
         try:
             select_stmt = select(Activity)
-            activities = connection.execute(select_stmt).fetchall()
+            activities = connection.scalars(select_stmt)
             return activities if activities else False
         except SQLAlchemyError:
             logging.exception('')
@@ -24,7 +24,7 @@ class MActivity_DAO(IActivity_DAO):
     def find_by_id(self, connection, id : int) -> Union[Activity, bool]:
         try:
             select_stmt = select(Activity).where(Activity.activity_id == id)
-            activity = connection.execute(select_stmt).fetchone()
+            activity = connection.scalars(select_stmt).one()
             return activity if activity else False
         except SQLAlchemyError:
             logging.exception('')
@@ -32,7 +32,7 @@ class MActivity_DAO(IActivity_DAO):
     def find_by_name(self, connection, name : str) -> Union[Activity, bool]:
         try:
             select_stmt = select(Activity).where(Activity.name_activity == name)
-            activity = connection.execute(select_stmt).fetchone()
+            activity = connection.scalars(select_stmt).one()
             return activity if activity else False
         except SQLAlchemyError:
             logging.exception('')
