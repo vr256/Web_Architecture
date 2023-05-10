@@ -1,6 +1,6 @@
 from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
-from ..tools import DAO_Factory
+from ..services import AdminService
 
 from django.apps import apps
 
@@ -23,15 +23,9 @@ User = apps.get_model('main_app', 'User')
 
 
 def index_page(request):
-    usr = User(login='login', email='email', password='password', role_id=2)
-    dao_user = DAO_Factory().get_dao('mysql').get_dao_implementation('user')
-    users = dao_user.select_all()
-    print(users, end='\n')
-    dao_user.insert([usr])
-    users = dao_user.select_all()
-    print(users, end='\n')
-    context = {'login': 'John'}
-    return render(request, 'index.html', context)
+    users = AdminService.get_users()
+    print(users)
+    return render(request, 'index.html')
     # if 'login' in session:
     #     role = AuthService.get_role(session['role_id']) 
     #     return render_template('index.html', login=session.get('login'), role=role, current_language='en')
