@@ -14,11 +14,11 @@ class MActivity_DAO(IActivity_DAO):
         return activities if activities else False        
             
     def find_by_id(self, id : int) -> Union[Activity, bool]:
-        activity = Activity.objects.get(activity_id=id)
+        activity = Activity.objects.filter(activity_id=id).first()
         return activity if activity else False
     
     def find_by_name(self, name : str) -> Union[Activity, bool]:
-        activity = Activity.objects.get(name_activity=name)
+        activity = Activity.objects.filter(name_activity=name).first()
         return activity if activity else False   
         
     def insert(self, activities : List[Activity]):

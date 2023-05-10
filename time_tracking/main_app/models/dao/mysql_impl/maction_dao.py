@@ -14,7 +14,7 @@ class MAction_DAO(IAction_DAO):
         return actions if actions else False          
 
     def find_by_name(self, name : str) -> Union[Action, bool]:
-        action = Action.objects.get(name_action=name)
+        action = Action.objects.filter(name_action=name).first()
         return action if action else False
         
     def insert(self, actions : List[Action]):

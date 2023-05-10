@@ -1,0 +1,16 @@
+:root {
+    --navbar-font: white;
+    --navbar-color: #2196F3;
+    --navbar-hover: #0d6efd;
+    
+    --button-font: #ffffff;
+    --button-color: #007bff;
+    --button-hover: #0164ce;
+
+    --input-border: #ccc;
+    --background-gradient: #ffffff;
+    --background-color: #f7f7f7;
+
+    --error-font: red;
+    --warning-font: red;
+  }

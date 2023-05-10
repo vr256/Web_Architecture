@@ -14,11 +14,11 @@ class MRole_DAO(IRole_DAO):
         return roles if roles else False
 
     def find_by_id(self, id : int) -> Union[Role, bool]:
-        role = Role.objects.get(role_id=id)
+        role = Role.objects.filter(role_id=id).first()
         return role if role else False
 
     def find_by_name(self, name : str) -> Union[Role, bool]:
-        role = Role.objects.get(role_name=name)
+        role = Role.objects.filter(role_name=name).first()
         return role if role else False
 
     def insert(self, roles : List[Role]):

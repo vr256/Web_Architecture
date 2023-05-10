@@ -13,16 +13,16 @@ class MTimeTracking_DAO(ITimeTracking_DAO):
         time_trackings = TimeTracking.objects.all()
         return time_trackings if time_trackings else False       
             
-    def find_by_user_id(self, user_id: int) -> List[TimeTracking]:
-        time_trackings = TimeTracking.objects.filter(user_id=user_id)
+    def find_by_user(self, user) -> List[TimeTracking]:
+        time_trackings = TimeTracking.objects.filter(user=user)
         return list(time_trackings)
 
-    def find_by_activity_id(self, activity_id: int) -> List[TimeTracking]:
-        time_trackings = TimeTracking.objects.filter(activity_id=activity_id)
+    def find_by_activity(self, activity) -> List[TimeTracking]:
+        time_trackings = TimeTracking.objects.filter(activity=activity)
         return list(time_trackings)
 
-    def find_by_action_id(self, action_id: int) -> List[TimeTracking]:
-        time_trackings = TimeTracking.objects.filter(action_id=action_id)
+    def find_by_action(self, action) -> List[TimeTracking]:
+        time_trackings = TimeTracking.objects.filter(action=action)
         return list(time_trackings)
 
     def insert(self, time_trackings : List[TimeTracking]):

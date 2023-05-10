@@ -10,21 +10,21 @@ class ITimeTracking_DAO(metaclass=ABCMeta):
         '''
 
     @abstractmethod
-    def find_by_user_id(self, user_id):
+    def find_by_user(self, user):
         '''
         Should return list of activities 
         and time spent on them by given user
         '''
 
     @abstractmethod
-    def find_by_activity_id(self, activity_id):
+    def find_by_activity(self, activity):
         '''
         Should return list of users and 
         time spent by them on given activity
         '''
 
     @abstractmethod
-    def find_by_action_id(self, action_id):
+    def find_by_action(self, action):
         '''
         Should return list of users and 
         activities with given action

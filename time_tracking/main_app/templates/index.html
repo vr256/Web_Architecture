@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/index.css">
+    <link rel="stylesheet" href="{% static 'main_app/css/index.css' %}">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
@@ -32,18 +33,18 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle dropdown-toggle-no-caret" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                {% if current_language == 'en' %}
-                <img src="../static/image/lang/gb.svg" alt="eng" class="nav-flag">
-                {% elif current_language == 'uk' %}
-                <img src="../static/image/lang/ua.svg" alt="ukr" class="nav-flag">
+                {% if current_language == 'eng' %}
+                <img src="{% static 'main_app/img/lang/gb.svg' %}" alt="eng" class="nav-flag">
+                {% elif current_language == 'ukr' %}
+                <img src="{% static 'main_app/img/lang/ua.svg' %}" alt="ukr" class="nav-flag">
                 {% endif %}
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item {% if current_language == 'en' %}active{% endif %}" href="#" data-lang="en">
-                  <img src="../static/image/lang/gb.svg" alt="eng" class="nav-flag">
+                  <img src="{% static 'main_app/img/lang/gb.svg' %}" alt="eng" class="nav-flag">
                 </a>
                 <a class="dropdown-item {% if current_language == 'uk' %}active{% endif %}" href="#" data-lang="uk">
-                  <img src="../static/image/lang/ua.svg" alt="ukr" class="nav-flag">
+                  <img src="{% static 'main_app/img/lang/ua.svg' %}" alt="ukr" class="nav-flag">
                 </a>
               </div>
             </li>
@@ -56,7 +57,7 @@
         <div class="row">
           <div class="col-md-6">
             <h2>Track Your Time</h2>
-            <p>With this web app, you can easily track your time spent on a wide range of activities.</p>
+            <p>With this web app, you can easily track your time spent on a broad range of activities.</p>
             <a class="btn btn-primary" href="#">Learn More</a>
           </div>
           <div class="col-md-6">

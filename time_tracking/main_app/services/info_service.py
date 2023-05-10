@@ -18,7 +18,7 @@ class InfoService:
         dao_user = DAO_Factory.get_dao(DBMS).get_dao_implementation('user')
         dao_time = DAO_Factory.get_dao(DBMS).get_dao_implementation('time_tracking')
         user = dao_user.find_by_login(login)
-        time_records = dao_time.find_by_user_id(user.user_id)
+        time_records = dao_time.find_by_user(user)
         activities = [dao_activity.find_by_id(record.activity_id) for record in time_records]
         time_values = [InfoService.convert_time(record.time_spent) for record in time_records]
         result_dict = {activity.name_activity: time_val for activity, time_val in zip(activities, time_values)}

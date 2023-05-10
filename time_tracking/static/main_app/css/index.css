@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url("{% static 'main_app/css/color.css' %}");
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: var(--background-color)
+}
+
+.nav-flag {
+  width: 1.65em; 
+  height: 1.65em;
+}
+
+.navbar {
+  padding: 0;
+}
+
+.navbar .navbar-brand {
+  padding: 0.75rem 2rem;
+  color: var(--navbar-font);
+  background-color: var(--navbar-color);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-link {
+  padding: 0.95rem 2rem;
+  color: var(--navbar-font) !important;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-link:hover,
+.navbar-brand:hover {
+  margin: 0;
+  color: var(--navbar-font) !important;
+  background-color: var(--navbar-hover);
+}
+
+.bg-primary {
+  background-color: var(--navbar-color) !important;
+  color: var(--button-font);
+  background-color: var(--navbar-color);
+  border-color: var(--navbar-color);
+}
+
+.container {
+  background: linear-gradient(to bottom, var(--background-gradient), var(--background-color));
+}
+
+.container.mt-5 {
+  padding: 2rem;
+  border-radius: 5px;
+}
+
+.col-md-6{
+  padding: 1rem;
+  border-radius: 5px;
+}
+
+.hero {
+  background-image: url('https://images.unsplash.com/photo-1553531887-4b6dc03b94f7');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--background-color);
+  height: calc(100vh - 56px);
+}
+
+.btn-primary:hover {
+  color: var(--button-font);
+  background-color: var(--button-hover);
+  border-color: var(--button-hover);
+}
+
+.btn-outline-primary {
+  color: var(--navbar-color);
+  border-color: var(--navbar-color);
+}
+
+.btn-outline-primary:hover {
+  color: var(--button-font);
+  background-color: var(--navbar-color);
+  border-color: var(--navbar-color);
+}
+

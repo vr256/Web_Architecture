@@ -14,7 +14,7 @@ class MCategory_DAO(ICategory_DAO):
         return categories if categories else False      
             
     def find_by_name(self, name : str) -> Union[Category, bool]:
-        category = Category.objects.get(name_category=name)
+        category = Category.objects.filter(name_category=name).first()
         return category if category else False      
             
     def insert(self, categories : List[Category]):

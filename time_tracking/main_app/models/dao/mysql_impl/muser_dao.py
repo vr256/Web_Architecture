@@ -14,11 +14,11 @@ class MUser_DAO(IUser_DAO):
         return users if users else False
 
     def find_by_login(self, login : str) -> Union[User, bool]:
-        user = User.objects.get(login=login)
+        user = User.objects.filter(login=login).first()
         return user if user else False
     
     def find_by_email(self, email : str) -> Union[User, bool]:
-        user = User.objects.get(email=email)
+        user = User.objects.filter(email=email).first()
         return user if user else False
 
     def find_last(self) -> Union[User, bool]:
