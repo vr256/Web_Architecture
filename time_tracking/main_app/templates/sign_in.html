@@ -29,7 +29,7 @@
       <br>
       <form action="{% url 'signin' %}" method="POST">
         {% csrf_token %}
-        <input type="text" placeholder="Login or email" name="creds" value="{{ creds }}">
+        <input type="text" placeholder="Login or email" name="creds" value="">
          <input type="password" placeholder="Password" name="password" value="">
         <input class="btn btn-default" type="submit" value="Sign in">
       </form>

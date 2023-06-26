@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-4xpcezq#sf(2w^^7&^367)v7eh8v3+#u#@8$7mu9=+@n029ls8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -76,7 +76,6 @@ DATABASES = {
 }
 
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -123,12 +122,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom
 ROLES = {
-    'user': 1, 
+    'user': 1,
     'admin': 2,
 }
 
 VALIDATORS = {
-    'login': r'^[A-Za-z_]{1}\w{,15}$', 
+    'login': r'^[A-Za-z_]{1}\w{,15}$',
     'password': r'^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,16}$',
     'email': r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
 }
@@ -147,7 +146,7 @@ ERRORS = {
     'REG_EMAIL': 'this email is already taken',
     'INVALID_LOGIN': 'username should contain only letters, digits, _ and be less than 16 symbols long',
     'INVALID_EMAIL': 'wrong email',
-    'INVALID_PASSWORD': 'password should contain at least one capital letter, one digit, ' 
+    'INVALID_PASSWORD': 'password should contain at least one capital letter, one digit, '
                         'one special symbol and be 8 to 24 symbols long',
 }
 

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
     crossorigin="anonymous">
-    <link href="{% static 'main_app/css/sign_up.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'main_app/css/sign_in.css' %}" rel="stylesheet" media="screen">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
@@ -27,13 +27,11 @@
     <div class="container">
       <h1>Sign up</h1>
       <br>
-      <form action="" method="post">
-        <input type="text" placeholder="username" name="username" value="{{
-          request.form.username }}">
-          <input type="text" placeholder="email" name="email" value="{{
-            request.form.email }}">
-         <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
+      <form action="{% url 'signup' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="Username" name="username" value="">
+          <input type="text" placeholder="Email" name="email" value="">
+         <input type="password" placeholder="Password" name="password" value="">
         <input class="btn btn-default" type="submit" value="Sign up">
       </form>
       {% if error %}

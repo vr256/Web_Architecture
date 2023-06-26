@@ -1,10 +1,10 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from ..services import AuthService, InfoService
 
 
 ERRORS = settings.ERRORS
+
 
 def home_page(request):
     login = request.session.get('login')
@@ -25,7 +25,7 @@ def home_page(request):
             sign_out(request)
             context['signout'] = True
         return render(request, 'home.html', context)
-    
+
 
 def sign_out(request):
     request.session.pop('login')
