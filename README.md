@@ -12,8 +12,9 @@
 ## How to install & run
 1. `git clone https://github.com/vr256/software_architecture.git`
 2. `cd software_architecture` 
-3. `pip install venv`  
-4. `python -m venv venv`  
-5. `venv/Scripts/activate`  
-6. `pip install -r requirements.txt`  
-7. `python time_tracking/manage.py runserver`
+3. `git checkout remotes/origin/django`
+4. `pip install venv`  
+5. `python -m venv venv`  
+6. `venv/Scripts/activate`  
+7. `pip install -r requirements.txt`  
+8. `python time_tracking/manage.py runserver`
