@@ -23,3 +23,11 @@ Here are three different versions of this architecture using different framework
 
 ## Database schema
 ![img](EER.png)  
+
+## Screenshots
+<details>
+  <img src="screenshots/index.jpg" name="Index page">
+  <img src="screenshots/signin.jpg" name="Sign in page">
+  <img src="screenshots/signup.jpg" name="Sign up page">
+  <img src="screenshots/404.jpg" name="Page not found">
+</details>
